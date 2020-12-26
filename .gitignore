@@ -2,6 +2,7 @@
 desktop.ini
 Thumbs.db
 
+.generated_files/
 build/
 dist/
 debug/
