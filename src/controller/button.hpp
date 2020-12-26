@@ -1,7 +1,7 @@
 #ifndef BUTTON_HPP
 #define BUTTON_HPP
 
-#include "../util/general.hpp"
+#include "../general.hpp"
 
 #include <xc.h>
 

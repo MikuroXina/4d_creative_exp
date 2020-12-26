@@ -1,7 +1,7 @@
 #ifndef PORT_HPP
 #define PORT_HPP
 
-#include "../util/general.hpp"
+#include "../general.hpp"
 
 #include <xc.h>
 

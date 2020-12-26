@@ -1,8 +1,8 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include "../util/general.hpp"
-#include "pone.hpp"
+#include "../game/pone.hpp"
+#include "../general.hpp"
 
 Size const SCREEN_SIZE = Size{128, 64};
 

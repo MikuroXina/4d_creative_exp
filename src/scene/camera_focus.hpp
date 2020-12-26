@@ -1,0 +1,4 @@
+#ifndef CAMERA_FOCUS_HPP
+#define CAMERA_FOCUS_HPP
+
+#endif // CAMERA_FOCUS_HPP

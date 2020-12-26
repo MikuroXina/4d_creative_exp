@@ -1,8 +1,8 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#include "../util/general.hpp"
-#include "panel.hpp"
+#include "../general.hpp"
+#include "./panel.hpp"
 
 #include <vector>
 

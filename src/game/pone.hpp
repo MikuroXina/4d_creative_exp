@@ -1,8 +1,8 @@
 #ifndef PONE_HPP
 #define PONE_HPP
 
-#include "../util/general.hpp"
-#include "panel.hpp"
+#include "../general.hpp"
+#include "./panel.hpp"
 
 #include <algorithm>
 #include <vector>

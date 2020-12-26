@@ -1,11 +1,11 @@
-#ifndef RENDERER_HPP
-#define RENDERER_HPP
+#ifndef TEXTURE_HPP
+#define TEXTURE_HPP
 
-#include "model/board.hpp"
-#include "model/camera.hpp"
-#include "model/panel.hpp"
-#include "model/pone.hpp"
-#include "util/general.hpp"
+#include "../game/board.hpp"
+#include "../game/camera.hpp"
+#include "../game/panel.hpp"
+#include "../game/pone.hpp"
+#include "../general.hpp"
 
 struct Texture64x64 {
   u8 chunk[512];
@@ -32,4 +32,4 @@ void renderPone(Camera const &camera, Pone const &path);
 
 void renderMessage(Camera const &camera, char const &message);
 
-#endif // RENDERER_HPP
+#endif // TEXTURE_HPP

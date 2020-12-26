@@ -1,7 +1,7 @@
 #ifndef PANEL_HPP
 #define PANEL_HPP
 
-#include "../util/general.hpp"
+#include "../general.hpp"
 
 #include <memory>
 

@@ -1,11 +1,11 @@
-#ifndef LOGIC_HPP
-#define LOGIC_HPP
+#ifndef GAME_HPP
+#define GAME_HPP
 
-#include "model/board.hpp"
-#include "model/camera.hpp"
-#include "model/panel.hpp"
-#include "model/pone.hpp"
-#include "util/general.hpp"
+#include "../general.hpp"
+#include "./board.hpp"
+#include "./camera.hpp"
+#include "./panel.hpp"
+#include "./pone.hpp"
 
 class Game {
   Board _board;
@@ -35,4 +35,4 @@ public:
   }
 };
 
-#endif // LOGIC_HPP
+#endif // GAME_HPP
