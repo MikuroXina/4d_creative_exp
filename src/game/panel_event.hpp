@@ -1,0 +1,4 @@
+#ifndef PANEL_EVENT_HPP
+#define PANEL_EVENT_HPP
+
+#endif // PANEL_EVENT_HPP
