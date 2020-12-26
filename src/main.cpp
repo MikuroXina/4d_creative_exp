@@ -1,9 +1,13 @@
 #include <xc.h>
 
-#pragma config FNOSC=FRCPLL // Use Fast RC Oscillator (8 Mhz) with System PLL
-#pragma config FPLLIDIV=DIV_2 // ÷ 2
-#pragma config FPLLMUL=MUL_20 // × 20
-#pragma config FPLLODIV=DIV_2 // ÷ 2
+// Use Fast RC Oscillator (8 Mhz) with System PLL
+#pragma config FNOSC=FRCPLL
+// ÷ 2
+#pragma config FPLLIDIV=DIV_2
+// × 20
+#pragma config FPLLMUL=MUL_20
+// ÷ 2
+#pragma config FPLLODIV=DIV_2
 // System clock is 40 MHz
 
 #pragma config FSOSCEN=OFF
