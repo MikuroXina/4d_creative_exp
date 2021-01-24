@@ -3,8 +3,11 @@
 
 #include "./wav.hpp"
 
-using SoundEffectGenerator = u8 (&)(u32);
+// SoundEffectGenerator generated wave form with elapsed time.
+using SoundEffectGenerator = u8 (&)(u32 elapsed);
 
+// SoundEffect stores start and current time.
+// SoundEffect delegates generation to a generator.
 class SoundEffect {
   SoundEffectGenerator generator;
   u32 start, current;
@@ -16,7 +19,9 @@ public:
 
   void write(Wav wav) {
     for (int i = 0; i < WAV_SIZE; ++i) {
-      wav[i] = generator(current - start);
+      auto const elapsed =
+          current < start ? ((u32)(-1) - start - current) : current - start;
+      wav[i] = generator(elapsed);
       ++current;
     }
   }
