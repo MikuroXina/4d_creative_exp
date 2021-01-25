@@ -4,6 +4,8 @@
 #include "../game/game.hpp"
 #include "./camera.hpp"
 
+// Scene has Game and Camera.
+// Scene updates the game process.
 class Scene {
   Game game;
   Camera camera;

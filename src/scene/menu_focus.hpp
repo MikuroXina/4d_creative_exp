@@ -3,6 +3,7 @@
 
 class Menu;
 
+// MenuFocus navigates focusing by listening button-inputs.
 class MenuFocus {
   Menu &menu;
 

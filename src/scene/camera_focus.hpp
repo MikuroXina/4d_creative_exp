@@ -5,6 +5,7 @@
 
 class Pone;
 
+// CameraFocus references Pone to focus by Camera.
 class CameraFocus {
   Pone &pone;
 
