@@ -15,7 +15,9 @@ class Game {
   u8 _turnCount;
 
 public:
-  Game() : _board{}, _pones{}, _camera{}, _currentPlayerIdx(0), _turnCount(1) {}
+  Game()
+      : _board{}, _pones{}, _camera{_pones.pone(0)}, _currentPlayerIdx(0),
+        _turnCount(1) {}
 
   void start() {
     // Game process here
@@ -26,10 +28,10 @@ public:
     case Nothing:
       return;
     case Good:
-      stepped.incrCoins(5);
+      stepped.incr_coins(5);
       return;
     case Bad:
-      stepped.decrCoins(2);
+      stepped.decr_coins(2);
       return;
     }
   }

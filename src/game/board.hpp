@@ -6,17 +6,20 @@
 
 #include <vector>
 
+// Board aggregates Panel objects
 class Board {
   std::vector<Panel> _panels;
 
 public:
-  template <class F> void panelForEach(F f) const {
+  template <class F> void panel_for_each(F f) const {
     for (auto const &panel : _panels) {
       f(panel);
     }
   }
 
-  void addPanel(Pos pos, PanelEvent event) { _panels.emplace_back(pos, event); }
+  void add_panel(Pos pos, PanelEvent event) {
+    _panels.emplace_back(pos, event, _panels.size());
+  }
 };
 
 #endif // BOARD_HPP

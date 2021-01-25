@@ -15,9 +15,9 @@ class Pone {
 public:
   Pone(Panel &on) : owned_coins(0), on(on) {}
 
-  void incrCoins(Coin amount) { owned_coins = owned_coins + amount; }
+  void incr_coins(Coin amount) { owned_coins = owned_coins + amount; }
 
-  void decrCoins(Coin amount) { owned_coins = owned_coins - amount; }
+  void decr_coins(Coin amount) { owned_coins = owned_coins - amount; }
 };
 
 class Pones {
@@ -26,9 +26,11 @@ class Pones {
 public:
   Pones() : _pones(4) {}
 
-  void addPone(Panel &to) { _pones.emplace_back(to); }
+  Pone &pone(u32 idx) { return _pones.at(idx); }
 
-  template <class F> void poneForEach(F f) const {
+  void add_pone(Panel &to) { _pones.emplace_back(to); }
+
+  template <class F> void pone_for_each(F f) const {
     for (auto const &pone : _pones) {
       f(pone);
     }

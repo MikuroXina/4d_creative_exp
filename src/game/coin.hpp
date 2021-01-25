@@ -1,6 +1,10 @@
 #ifndef COIN_HPP
 #define COIN_HPP
 
+#include "../general.hpp"
+
+#include <algorithm>
+
 class Coin {
   static constexpr u8 MAX_COIN = 99;
   u8 _amount = 0;

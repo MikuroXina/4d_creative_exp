@@ -3,8 +3,6 @@
 
 #include "../general.hpp"
 
-#include <memory>
-
 enum PanelEvent {
   Nothing,
   Good,
@@ -14,10 +12,11 @@ enum PanelEvent {
 class Panel {
   Pos _pos;
   PanelEvent _event;
-  std::unique_ptr<Panel> _next;
+  u32 _idx;
 
 public:
-  Panel(Pos pos, PanelEvent event) : _pos(pos), _event(event), _next(nullptr) {}
+  Panel(Pos pos, PanelEvent event, u32 index)
+      : _pos(pos), _event(event), _idx(index) {}
 };
 
 #endif // PANEL_HPP
