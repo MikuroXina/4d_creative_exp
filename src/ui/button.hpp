@@ -7,8 +7,9 @@
 #include "../lcd_renderer/texture.hpp"
 #include "./text.hpp"
 
-using ButtonEventHandler = void (&)(u8);
-
+// Button is a Component.
+// Button owns a Text.
+// Button implements ButtonEventHandler and Scene recieves it.
 class Button {
   Text text;
 

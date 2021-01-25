@@ -7,27 +7,18 @@
 #include "./button.hpp"
 #include "./text.hpp"
 
+// Menu is a Component.
+// Menu has Button as selection items.
+// Menu has Text, the title.
 class Menu {
   Text title;
   std::vector<Button> buttons;
-  u8 current_button_index;
 
 public:
   Menu(std::string title, std::initializer_list<std::string> options);
 
-  void next_button() {
-    ++current_button_index;
-    if (current_button_index == buttons.size()) {
-      current_button_index = 0;
-    }
-  }
-  void prev_button() {
-    --current_button_index;
-    if (current_button_index == 255) {
-      current_button_index = buttons.size() - 1;
-    }
-  }
-  u8 current_button_idx() const { return current_button_index; }
+  Button &button(u32 index) { return buttons.at(index); }
+  u32 buttons_count() const { return buttons.size(); }
 
   void write(Texture &tex) const;
 };
