@@ -16,13 +16,6 @@ using f32 = double;
 
 #define HAS_MASK(v, mask) ((v & mask) == mask)
 
-#define FOR_INCR(T, i, N)                                                      \
-  T i = 0;                                                                     \
-  for (; i != N; ++i)
-#define FOR_DECR(T, i, N)                                                      \
-  T i = N;                                                                     \
-  for (; 0 != i; --i)
-
 inline u8 reverseBits(u8 bits) {
   bits = (bits & 0xF0) >> 4 | (bits & 0x0F) << 4;
   bits = (bits & 0xCC) >> 2 | (bits & 0x33) << 2;
