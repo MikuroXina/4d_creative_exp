@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <vector>
 
+// Pone manages Coin.
+// Pone is on Panel.
 class Pone {
   Coin owned_coins;
   Panel &on;
@@ -20,6 +22,7 @@ public:
   void decr_coins(Coin amount) { owned_coins = owned_coins - amount; }
 };
 
+// Pones aggregates Pone.
 class Pones {
   std::vector<Pone> _pones;
 

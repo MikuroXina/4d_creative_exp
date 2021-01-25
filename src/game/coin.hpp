@@ -5,6 +5,8 @@
 
 #include <algorithm>
 
+// Coin is a value object.
+// The amount of Coin is greather than or equal to 0.
 class Coin {
   static constexpr u8 MAX_COIN = 99;
   u8 _amount = 0;

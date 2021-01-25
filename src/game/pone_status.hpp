@@ -1,4 +1,0 @@
-#ifndef PONE_STATUS_HPP
-#define PONE_STATUS_HPP
-
-#endif // PONE_STATUS_HPP

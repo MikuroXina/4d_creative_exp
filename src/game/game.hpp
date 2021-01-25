@@ -7,6 +7,7 @@
 #include "./panel.hpp"
 #include "./pone.hpp"
 
+// Game mediates board, pones and roulette.
 class Game {
   Board _board;
   Pones _pones;
@@ -23,18 +24,7 @@ public:
     // Game process here
   }
 
-  void handle(PanelEvent event, Pone &stepped) {
-    switch (event) {
-    case Nothing:
-      return;
-    case Good:
-      stepped.incr_coins(5);
-      return;
-    case Bad:
-      stepped.decr_coins(2);
-      return;
-    }
-  }
+  void handle(PanelEvent event, Pone &stepped) { event.apply(stepped); }
 };
 
 #endif // GAME_HPP

@@ -6,7 +6,7 @@
 
 #include <vector>
 
-// Board aggregates Panel objects
+// Board aggregates Panel objects.
 class Board {
   std::vector<Panel> _panels;
 

@@ -2,13 +2,9 @@
 #define PANEL_HPP
 
 #include "../general.hpp"
+#include "./panel_event.hpp"
 
-enum PanelEvent {
-  Nothing,
-  Good,
-  Bad,
-};
-
+// Panel has position, index and PanelEvent.
 class Panel {
   Pos _pos;
   PanelEvent _event;
