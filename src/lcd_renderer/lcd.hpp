@@ -5,23 +5,10 @@
 
 class OutputPort;
 
-class LcdGrid {
-  u8 is_left_row : 1;
-  u8 page : 3;
+void render_lcd_grid(u8 bitmap, OutputPort &lcd, u8 row) {}
 
-public:
-  LcdGrid(u8 is_left_row, u8 column) : is_left_row(is_left_row), page(column) {}
+void render_lcd_line(u8 bitmaps[8][8], OutputPort &lcd, bool is_left_low) {}
 
-  void render(u8 bitmap, OutputPort &lcd);
-};
-
-class Lcd {
-  LcdGrid grids[16];
-
-public:
-  Lcd();
-
-  void render(Texture tex, OutputPort &lcd);
-};
+void render_lcd(Texture tex, OutputPort &lcd) {}
 
 #endif // LCD_HPP
