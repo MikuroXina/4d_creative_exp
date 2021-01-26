@@ -5,10 +5,11 @@
 
 class OutputPort;
 
-void render_lcd_grid(u8 bitmap, OutputPort &lcd, u8 row) {}
+void send_lcd_grid(u8 bitmap, OutputPort &lcd, u8 row) {}
 
-void render_lcd_line(u8 bitmaps[8][8], OutputPort &lcd, bool is_left_low) {}
+void send_lcd_line(u8 bitmaps[8][8], OutputPort &lcd, u8 column,
+                   bool is_left_row) {}
 
-void render_lcd(Frame tex, OutputPort &lcd) {}
+void send_lcd(Frame const &tex, OutputPort &lcd) {}
 
 #endif // LCD_HPP
