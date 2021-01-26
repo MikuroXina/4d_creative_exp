@@ -20,7 +20,7 @@ public:
   Button &button(u32 index) { return buttons.at(index); }
   u32 buttons_count() const { return buttons.size(); }
 
-  void write(Texture &tex) const;
+  void write(Frame &tex) const;
 };
 
 #endif // MENU_HPP

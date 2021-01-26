@@ -3,7 +3,7 @@
 
 #include "./text/align.hpp"
 
-#include "../lcd_renderer/texture.hpp"
+#include "../lcd_renderer/frame.hpp"
 
 // Text is a Component and renders by Glyph data.
 // Text has TextAlign.
@@ -14,7 +14,7 @@ class Text {
 public:
   Text(std::string label, TextAlign align) : _label(label), _align(align) {}
 
-  void write(Texture &tex) const;
+  void write(Frame &tex) const;
 };
 
 #endif // TEXT_HPP

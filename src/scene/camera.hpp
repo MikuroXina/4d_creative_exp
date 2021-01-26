@@ -3,12 +3,12 @@
 
 #include "../game/pone.hpp"
 #include "../general.hpp"
-#include "../lcd_renderer/texture.hpp"
+#include "../lcd_renderer/frame.hpp"
 #include "./camera_focus.hpp"
 
 Size const SCREEN_SIZE = Size{128, 64};
 
-// Camera renders around Pone into Texture.
+// Camera renders around Pone into Frame.
 class Camera {
 public:
   Pos pos;
@@ -17,7 +17,7 @@ public:
   Camera(Pone &first_player) : pos(4, 4), focus(first_player) {}
 
   void move_to_focus();
-  void write(Texture &tex) const;
+  void write(Frame &tex) const;
 };
 
 #endif // CAMERA_HPP
