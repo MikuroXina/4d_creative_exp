@@ -34,8 +34,8 @@ inline void send_lcd(Frame const &tex, OutputPort &lcd) {
       }
       u8 line[64] = {};
       for (u8 grid_column{0}; grid_column != 8; ++grid_column) {
-        for (u8 row{0}; row != TEX_HEIGHT; ++row) {
-          auto const column = line_column + grid_column;
+        for (u8 row{7}; row != 0; --row) {
+          auto const column = line_column * 8 + grid_column;
           line[row] |= tex.texture[column * TEX_WIDTH] & (1 << row);
         }
       }
