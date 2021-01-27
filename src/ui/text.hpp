@@ -1,9 +1,10 @@
 #ifndef TEXT_HPP
 #define TEXT_HPP
 
+#include "../lcd_renderer/frame.hpp"
 #include "./text/align.hpp"
 
-#include "../lcd_renderer/frame.hpp"
+#include <string>
 
 // Text is a Component and renders by Glyph data.
 // Text has TextAlign.
