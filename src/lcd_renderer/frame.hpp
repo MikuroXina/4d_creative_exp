@@ -13,10 +13,8 @@ class Frame {
   u8 tex_idx(Pos pos) const { return (pos.y() * 128 + pos.x()) / 8; }
 
   void mark_needs_flush(Rect area) {
-    auto const top = area.pos().y() / 8,
-               bottom = (area.pos().y() + area.size().h() + 7) / 8 % 8,
-               left = area.pos().x() / 64,
-               right = (area.pos().x() + area.size().w() + 63) / 64 % 2;
+    auto const top = area.top() / 8, bottom = (area.bottom() + 7) / 8 % 8,
+               left = area.left() / 64, right = (area.right() + 63) / 64 % 2;
     for (auto col{top}; col != bottom; ++col) {
       for (auto row{left}; row != right; ++row) {
         needs_flush[row] |= 1 << col;

@@ -70,6 +70,11 @@ public:
   Pos pos() const { return _pos; }
   Size size() const { return _size; }
 
+  i8 top() const { return _pos.y(); }
+  i8 bottom() const { return _pos.y() + _size.h(); }
+  i8 left() const { return _pos.x(); }
+  i8 right() const { return _pos.x() + _size.w(); }
+
   static Rect zero() { return Rect{Pos::zero(), Size::zero()}; }
 };
 
