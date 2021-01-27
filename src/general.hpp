@@ -37,13 +37,13 @@ inline u16 reverse_bits(u16 bits) {
 }
 
 class Pos {
-  u8 _x, _y;
+  i8 _x, _y;
 
 public:
-  Pos(u8 x, u8 y) : _x(x), _y(y) {}
+  Pos(i8 x, i8 y) : _x(x), _y(y) {}
 
-  u8 x() const { return _x; }
-  u8 y() const { return _y; }
+  i8 x() const { return _x; }
+  i8 y() const { return _y; }
 
   static Pos zero() { return Pos{0, 0}; }
 };
