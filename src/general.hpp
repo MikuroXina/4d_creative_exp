@@ -16,6 +16,11 @@ using f32 = double;
 
 #define HAS_MASK(v, mask) ((v & mask) == mask)
 
+inline void busy_wait(u16 count) {
+  for (; count != 0; --count)
+    ;
+}
+
 inline u8 reverse_bits(u8 bits) {
   bits = (bits & 0x0f) << 4 | (bits >> 4) & 0x0f;
   bits = (bits & 0x33) << 2 | (bits >> 2) & 0x33;
