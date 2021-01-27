@@ -13,12 +13,26 @@ using KatakanaString = std::basic_string<Katakana>;
 // Text has TextAlign.
 class Text {
   KatakanaString _label;
+  Pos _pos;
   TextAlign _align;
 
 public:
-  Text(KatakanaString label, TextAlign align) : _label(label), _align(align) {}
+  Text(KatakanaString label, Pos pos, TextAlign align)
+      : _label(label), _pos(pos), _align(align) {}
 
-  void write(Frame &tex) const;
+  void write(Frame &tex) const {
+    u8 x = _pos.x(), y = _pos.y();
+    u16 buf[16];
+    for (auto const character : _label) {
+      Glyph::katakana(character).write(buf);
+      tex.draw16x16(buf, Pos{x, y});
+      x += 16;
+      if (128 < x) {
+        x = _pos.x();
+        y += 16;
+      }
+    }
+  }
 };
 
 #endif // TEXT_HPP
