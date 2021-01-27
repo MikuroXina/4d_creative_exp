@@ -17,9 +17,17 @@ using f32 = double;
 #define HAS_MASK(v, mask) ((v & mask) == mask)
 
 inline u8 reverse_bits(u8 bits) {
-  bits = (bits & 0xF0) >> 4 | (bits & 0x0F) << 4;
-  bits = (bits & 0xCC) >> 2 | (bits & 0x33) << 2;
-  bits = (bits & 0xAA) >> 1 | (bits & 0x55) << 1;
+  bits = (bits & 0x0f) << 4 | (bits >> 4) & 0x0f;
+  bits = (bits & 0x33) << 2 | (bits >> 2) & 0x33;
+  bits = (bits & 0x55) << 1 | (bits >> 1) & 0x55;
+  return bits;
+}
+
+inline u16 reverse_bits(u16 bits) {
+  bits = (bits & 0x00ff) << 8 | (bits >> 8) & 0x00ff;
+  bits = (bits & 0x0f0f) << 4 | (bits >> 4) & 0x0f0f;
+  bits = (bits & 0x3333) << 2 | (bits >> 2) & 0x3333;
+  bits = (bits & 0x5555) << 1 | (bits >> 1) & 0x5555;
   return bits;
 }
 
