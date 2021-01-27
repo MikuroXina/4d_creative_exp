@@ -1,6 +1,8 @@
 #ifndef GLYPH_HPP
 #define GLYPH_HPP
 
+#include "../../general.hpp"
+
 using Katakana = char16_t;
 
 /**
@@ -9,8 +11,9 @@ using Katakana = char16_t;
 class Glyph {
   const unsigned char (&bits)[18]; // 8 * 18 = 12 * 12
 
-  int column(int columnIndex) const {
-    int column = 0;
+  // The return values is 12-bit width.
+  u16 column_bits(u8 columnIndex) const {
+    u16 column = 0;
     if (columnIndex % 2 == 0) {
       // 000000001111
       // 0: bits[i / 2 * 3]
@@ -30,21 +33,10 @@ class Glyph {
   Glyph(const unsigned char (&bits)[18]) : bits(bits) {}
 
 public:
-  void write(unsigned char buf[16][64], unsigned char x,
-             unsigned char y) const {
-    for (int columnIdx = 0; columnIdx < 12; ++columnIdx) {
-      if (64 <= y + columnIdx)
-        return; // out of y bounds
-      if (128 - 12 <= x)
-        continue; // out of x bounds
-
-      int columnBits = column(columnIdx) >> (x % 8);
-      // y + columnIdx > [00000000] [00000000] ...
-      //                  ^ x / 8
-      buf[x / 8][y + columnIdx] = (columnBits & 0xff00) >> 8;
-      if (0 < x % 8) {
-        buf[x / 8 + 1][y + columnIdx] = columnBits & 0x00ff;
-      }
+  void write(u16 out[16]) const {
+    for (u8 col{0}; col != 12; ++col) {
+      u16 bits = column_bits(col);
+      out[col] = bits << 2;
     }
   }
 
