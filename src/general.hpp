@@ -42,6 +42,9 @@ class Pos {
 public:
   Pos(u8 x, u8 y) : _x(x), _y(y) {}
 
+  u8 x() const { return _x; }
+  u8 y() const { return _y; }
+
   static Pos zero() { return Pos{0, 0}; }
 };
 
@@ -50,6 +53,9 @@ class Size {
 
 public:
   Size(u8 w, u8 h) : _w(w), _h(h) {}
+
+  u8 w() const { return _w; }
+  u8 h() const { return _h; }
 
   static Size zero() { return Size{0, 0}; }
 };
@@ -60,6 +66,9 @@ class Rect {
 
 public:
   Rect(Pos pos, Size size) : _pos(pos), _size(size) {}
+
+  Pos pos() const { return _pos; }
+  Size size() const { return _size; }
 
   static Rect zero() { return Rect{Pos::zero(), Size::zero()}; }
 };
