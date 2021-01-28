@@ -2,23 +2,32 @@
 #define BUTTON_HPP
 
 #include "../general.hpp"
+#include "../timer.hpp"
 
 #include <xc.h>
 
-static void __interrupt handler_button_interruption() {}
+constexpr u8 IGNORE_DURATION = 200;
 
-template <class Handler> class Button {
-  Handler &_handler;
+// HardwareButton manages port input state with delaying to prevent from
+// chattering.
+class HardwareButton {
+  u8 _port;
+  u8 _ignore_count = 0;
 
 public:
-  template <class P> Button(P port, Handler &handler) : _handler(handler) {
-    port.set();
-    P::field;
+  HardwareButton(u16 port) : _port(port) { TRISB |= 1 << port; }
 
-    IOCAN3 = 1;
-    IOCIE = 1;
-    GIE = 1;
+  void update(u8 elapsed) {
+    if (_ignore_count) {
+      _ignore_count = (_ignore_count < elapsed) ? 0 : (_ignore_count - elapsed);
+      return;
+    }
+    if (HAS_MASK(PORTA, _port)) {
+      _ignore_count = IGNORE_DURATION;
+    }
   }
+
+  bool is_pressed() const { return _ignore_count != 0; }
 };
 
 #endif // BUTTON_HPP
