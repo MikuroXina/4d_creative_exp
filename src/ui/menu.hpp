@@ -12,12 +12,12 @@
 // Menu has Text, the title.
 class Menu {
   Text title;
-  std::vector<Button> buttons;
+  std::vector<SoftwareButton> buttons;
 
 public:
   Menu(std::string title, std::initializer_list<std::string> options);
 
-  Button &button(u32 index) { return buttons.at(index); }
+  SoftwareButton &button(u32 index) { return buttons.at(index); }
   u32 buttons_count() const { return buttons.size(); }
 
   void write(Frame &tex) const;

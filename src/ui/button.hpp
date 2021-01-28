@@ -7,14 +7,14 @@
 #include "../lcd_renderer/frame.hpp"
 #include "./text.hpp"
 
-// Button is a Component.
-// Button owns a Text.
-// Button implements ButtonEventHandler and Scene recieves it.
-class Button {
+// SoftwareButton is a Component.
+// SoftwareButton owns a Text.
+// SoftwareButton implements ButtonEventHandler and Scene recieves it.
+class SoftwareButton {
   Text text;
 
 public:
-  Button(std::string text);
+  SoftwareButton(std::string text);
 
   void write(Frame &tex) const;
 };
