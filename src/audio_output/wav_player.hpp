@@ -5,9 +5,6 @@
 
 #include "./sound_effect.hpp"
 
-class InputPort;
-class OutputPort;
-
 // WavPlayer keeps playing and not playing Wav.
 // WavPlayer swaps between playing and not playing when output the whole of
 // playing Wav.
@@ -17,13 +14,16 @@ class WavPlayer {
   std::vector<SoundEffect> sound_effects = {};
   Wav playing = {}, not_playing = {};
   u8 playing_index = 0;
-  InputPort &timer;
-  OutputPort &speaker;
 
-  void audio_frame();
+  void bounce_audio_frame();
 
 public:
-  WavPlayer(InputPort &timer, OutputPort &speaker);
+  WavPlayer();
+
+  void update(u8 elapsed);
+  void fixed_update() const;
+
+  void play_se(SoundEffect &&se);
 };
 
 #endif // WAV_PLAYER_HPP
