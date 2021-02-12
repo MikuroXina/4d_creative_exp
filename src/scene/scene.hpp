@@ -13,7 +13,7 @@ class Scene {
 public:
   Scene(u8 numbers_of_player);
 
-  void update();
+  void run();
 };
 
 #endif // SCENE_HPP

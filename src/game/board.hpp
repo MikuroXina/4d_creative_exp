@@ -20,6 +20,8 @@ public:
   void add_panel(Pos pos, PanelEvent event) {
     _panels.emplace_back(pos, event, _panels.size());
   }
+
+  Panel &first() { return _panels.at(0); }
 };
 
 #endif // BOARD_HPP
