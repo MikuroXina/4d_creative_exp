@@ -6,12 +6,14 @@
 #include "./camera.hpp"
 #include "./panel.hpp"
 #include "./pone.hpp"
+#include "./roulette.hpp"
 
 // Game mediates board, pones and roulette.
 class Game {
   Board _board;
   Pones _pones;
   Camera _camera;
+  Roulette _roulette;
   u8 _current_player_idx;
   u8 _turn_count;
   u8 _numbers_of_player;
@@ -29,6 +31,8 @@ public:
   }
 
   Pone &current_player() { return _pones.pone(_current_player_idx); }
+
+  u8 spin_roulette() { return _roulette.roll(); }
 
   void next_turn() {
     ++_turn_count;

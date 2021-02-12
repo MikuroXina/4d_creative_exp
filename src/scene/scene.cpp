@@ -6,7 +6,8 @@ Scene::Scene(u8 numbers_of_player, Board &&board)
 
 void Scene::run() {
   while (true) {
-    // TODO: Spin a roulette and read its number
+    u8 steps = game.spin_roulette();
+    auto current = game.current_player();
     // TODO: Advance a pone
     // TODO: Activate an effect of the panel
     game.next_turn();
