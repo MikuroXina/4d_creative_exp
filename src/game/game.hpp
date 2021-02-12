@@ -17,9 +17,10 @@ class Game {
   u8 _numbers_of_player;
 
 public:
-  Game(u8 numbers_of_player)
-      : _board{}, _pones{}, _camera{_pones.pone(0)}, _current_player_idx(0),
-        _turn_count(1), _numbers_of_player(numbers_of_player) {
+  Game(u8 numbers_of_player, Board &&board)
+      : _board{std::move(board)}, _pones{}, _camera{_pones.pone(0)},
+        _current_player_idx(0), _turn_count(1),
+        _numbers_of_player(numbers_of_player) {
     auto &first_panel = _board.first();
 
     for (u8 i = 0; i != numbers_of_player; ++i) {

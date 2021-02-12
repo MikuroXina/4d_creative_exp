@@ -1,7 +1,8 @@
 #include "scene.hpp"
 
-Scene::Scene(u8 numbers_of_player)
-    : game{numbers_of_player}, camera{game.current_player()} {}
+Scene::Scene(u8 numbers_of_player, Board &&board)
+    : game{numbers_of_player, std::move(board)}, camera{game.current_player()} {
+}
 
 void Scene::run() {
   while (true) {

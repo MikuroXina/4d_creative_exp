@@ -11,7 +11,7 @@ class Scene {
   Camera camera;
 
 public:
-  Scene(u8 numbers_of_player);
+  Scene(u8 numbers_of_player, Board &&board);
 
   void run();
 };

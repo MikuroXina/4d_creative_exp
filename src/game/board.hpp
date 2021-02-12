@@ -11,6 +11,11 @@ class Board {
   std::vector<Panel> _panels;
 
 public:
+  Board() = default;
+
+  Board(Board &&moved) : _panels(std::move(moved._panels)) {}
+  Board &operator=(Board &&) = default;
+
   template <class F> void panel_for_each(F f) const {
     for (auto const &panel : _panels) {
       f(panel);
