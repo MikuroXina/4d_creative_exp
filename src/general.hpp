@@ -38,24 +38,24 @@ class Pos {
   i8 _x, _y;
 
 public:
-  Pos(i8 x, i8 y) : _x(x), _y(y) {}
+  constexpr Pos(i8 x, i8 y) : _x(x), _y(y) {}
 
-  i8 x() const { return _x; }
-  i8 y() const { return _y; }
+  constexpr i8 x() const { return _x; }
+  constexpr i8 y() const { return _y; }
 
-  static Pos zero() { return Pos{0, 0}; }
+  static constexpr Pos zero() { return Pos{0, 0}; }
 };
 
 class Size {
   u8 _w, _h;
 
 public:
-  Size(u8 w, u8 h) : _w(w), _h(h) {}
+  constexpr Size(u8 w, u8 h) : _w(w), _h(h) {}
 
-  u8 w() const { return _w; }
-  u8 h() const { return _h; }
+  constexpr u8 w() const { return _w; }
+  constexpr u8 h() const { return _h; }
 
-  static Size zero() { return Size{0, 0}; }
+  static constexpr Size zero() { return Size{0, 0}; }
 };
 
 class Rect {
@@ -63,17 +63,17 @@ class Rect {
   Size _size;
 
 public:
-  Rect(Pos pos, Size size) : _pos(pos), _size(size) {}
+  constexpr Rect(Pos pos, Size size) : _pos(pos), _size(size) {}
 
-  Pos pos() const { return _pos; }
-  Size size() const { return _size; }
+  constexpr Pos pos() const { return _pos; }
+  constexpr Size size() const { return _size; }
 
-  i8 top() const { return _pos.y(); }
-  i8 bottom() const { return _pos.y() + _size.h(); }
-  i8 left() const { return _pos.x(); }
-  i8 right() const { return _pos.x() + _size.w(); }
+  constexpr i8 top() const { return _pos.y(); }
+  constexpr i8 bottom() const { return _pos.y() + _size.h(); }
+  constexpr i8 left() const { return _pos.x(); }
+  constexpr i8 right() const { return _pos.x() + _size.w(); }
 
-  static Rect zero() { return Rect{Pos::zero(), Size::zero()}; }
+  static constexpr Rect zero() { return Rect{Pos::zero(), Size::zero()}; }
 };
 
 #endif // GENERAL_HPP

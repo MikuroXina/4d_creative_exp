@@ -6,7 +6,7 @@
 #include "../lcd_renderer/frame.hpp"
 #include "./camera_focus.hpp"
 
-Size const SCREEN_SIZE = Size{128, 64};
+Size constexpr SCREEN_SIZE = Size{128, 64};
 
 // Camera renders around Piece into Frame.
 class Camera {
