@@ -1,7 +1,7 @@
 #ifndef PANEL_EVENT_HPP
 #define PANEL_EVENT_HPP
 
-#include "./pone.hpp"
+#include "./piece.hpp"
 
 enum PanelEventKind {
   Nothing,
@@ -9,22 +9,22 @@ enum PanelEventKind {
   Bad,
 };
 
-// PanelEvent mutates Pone.
+// PanelEvent mutates Piece.
 class PanelEvent {
   PanelEventKind _kind;
 
 public:
   PanelEvent(PanelEventKind kind) : _kind(kind) {}
 
-  void apply(Pone &pone) const {
+  void apply(Piece &piece) const {
     switch (_kind) {
     case Nothing:
       return;
     case Good:
-      pone.incr_coins(5);
+      piece.incr_coins(5);
       return;
     case Bad:
-      pone.decr_coins(2);
+      piece.decr_coins(2);
       return;
     }
   }

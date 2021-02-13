@@ -5,13 +5,13 @@
 #include "./board.hpp"
 #include "./camera.hpp"
 #include "./panel.hpp"
-#include "./pone.hpp"
+#include "./piece.hpp"
 #include "./roulette.hpp"
 
-// Game mediates board, pones and roulette.
+// Game mediates board, pieces and roulette.
 class Game {
   Board _board;
-  Pones _pones;
+  Pieces _pieces;
   Camera _camera;
   Roulette _roulette;
   u8 _current_player_idx;
@@ -20,21 +20,21 @@ class Game {
 
 public:
   Game(u8 numbers_of_player, Board &&board)
-      : _board{std::move(board)}, _pones{}, _camera{_pones.pone(0)},
+      : _board{std::move(board)}, _pieces{}, _camera{_pieces.piece(0)},
         _current_player_idx(0), _turn_count(1),
         _numbers_of_player(numbers_of_player) {
     auto &first_panel = _board.first();
 
     for (u8 i = 0; i != numbers_of_player; ++i) {
-      _pones.add_pone(first_panel);
+      _pieces.add_piece(first_panel);
     }
   }
 
-  Pone &current_player() { return _pones.pone(_current_player_idx); }
+  Piece &current_player() { return _pieces.piece(_current_player_idx); }
 
   u8 spin_roulette() { return _roulette.roll(); }
 
-  void advance(Pone &target, u8 steps) {
+  void advance(Piece &target, u8 steps) {
     auto dst = _board.at(target.where_is_on().index() + steps);
     target.move_to(dst);
   }
@@ -47,7 +47,7 @@ public:
     }
   }
 
-  void handle(PanelEvent event, Pone &stepped) { event.apply(stepped); }
+  void handle(PanelEvent event, Piece &stepped) { event.apply(stepped); }
 };
 
 #endif // GAME_HPP

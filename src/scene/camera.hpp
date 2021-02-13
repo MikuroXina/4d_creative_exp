@@ -1,20 +1,20 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include "../game/pone.hpp"
+#include "../game/piece.hpp"
 #include "../general.hpp"
 #include "../lcd_renderer/frame.hpp"
 #include "./camera_focus.hpp"
 
 Size const SCREEN_SIZE = Size{128, 64};
 
-// Camera renders around Pone into Frame.
+// Camera renders around Piece into Frame.
 class Camera {
 public:
   Pos pos;
   CameraFocus focus;
 
-  Camera(Pone &first_player) : pos(4, 4), focus(first_player) {}
+  Camera(Piece &first_player) : pos(4, 4), focus(first_player) {}
   Camera(Camera &&) = default;
   Camera &operator=(Camera &&) { return *this; }
 

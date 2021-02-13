@@ -3,16 +3,16 @@
 
 #include "../general.hpp"
 
-class Pone;
+class Piece;
 
-// CameraFocus references Pone to focus by Camera.
+// CameraFocus references Piece to focus by Camera.
 class CameraFocus {
-  Pone &pone;
+  Piece &piece;
 
 public:
-  CameraFocus(Pone &pone) : pone(pone) {}
+  CameraFocus(Piece &piece) : piece(piece) {}
 
-  void change_focus(Pone &pone);
+  void change_focus(Piece &piece);
   Pos focused_pos() const;
   void blur();
 };
