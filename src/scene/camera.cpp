@@ -10,7 +10,7 @@ void Camera::move_to_focus() {
   pos = dst;
 }
 
-constexpr u16 piece_pixels[16] = {
+constexpr u16 PIECE_PIXELS[16] = {
     0b0000000000000000, //
     0b0000001111000000, //
     0b0000111111110000, //
@@ -29,21 +29,21 @@ constexpr u16 piece_pixels[16] = {
     0b0000000000000000, //
 };
 
-constexpr Size piece_size{16, 16}, panel_size{32, 32};
+constexpr Size PIECE_SIZE{16, 16}, PANEL_SIZE{32, 32};
 
 void Camera::write(Frame &tex) const {
   _pieces.piece_for_each([this, &tex](Piece const &piece) {
     auto local_pos = piece.where_is_on().pos() - this->pos;
-    if (!SCREEN.intersects({local_pos, piece_size})) {
+    if (!SCREEN.intersects({local_pos, PIECE_SIZE})) {
       return;
     }
-    tex.draw16x16(piece_pixels, local_pos);
+    tex.draw16x16(PIECE_PIXELS, local_pos);
   });
   auto const focus_panel_idx = focus.where_is_on().index();
   auto const board_size = _board.size();
   for (i8 offset = -4; offset != 5; ++offset) {
     auto const &panel =
         _board.at((focus_panel_idx + offset + board_size) % board_size);
-    tex.draw_border({panel.pos(), panel_size});
+    tex.draw_border({panel.pos(), PANEL_SIZE});
   }
 }
