@@ -23,7 +23,7 @@ public:
       : _board{std::move(board)}, _pieces{}, _camera{_pieces.piece(0)},
         _current_player_idx(0), _turn_count(1),
         _numbers_of_player(numbers_of_player) {
-    auto &first_panel = _board.first();
+    auto &first_panel = _board.at(0);
 
     for (u8 i = 0; i != numbers_of_player; ++i) {
       _pieces.add_piece(first_panel);

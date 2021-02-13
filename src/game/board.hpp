@@ -26,8 +26,6 @@ public:
     _panels.emplace_back(pos, event, _panels.size());
   }
 
-  Panel &first() { return _panels.at(0); }
-
   Panel &at(u32 index) { return _panels.at(index); }
 };
 
