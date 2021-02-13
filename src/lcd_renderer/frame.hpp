@@ -37,7 +37,7 @@ public:
     needs_flush[1] = 0;
   }
 
-  void draw16x16(u16 src[16], Pos pos) {
+  void draw16x16(u16 const src[16], Pos pos) {
     i8 const x = pos.x(), y = pos.y();
     mark_needs_flush(Rect{
         Pos{x, y},
