@@ -36,6 +36,8 @@ int main() {
       {{0, 32}, {PanelEventKind::Good}},
   });
 
+  Scene scene(1, std::move(board));
+
   Button determine(0), left(1), right(2);
 
   Frame frame{};
