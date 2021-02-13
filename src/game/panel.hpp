@@ -10,9 +10,11 @@ class Panel {
   PanelEvent _event;
   u32 _idx;
 
-public:
   Panel(Pos pos, PanelEvent event, u32 index)
       : _pos(pos), _event(event), _idx(index) {}
+
+public:
+  friend class Board;
 
   Pos pos() const { return _pos; }
 
