@@ -62,19 +62,19 @@ public:
 };
 
 class Rect {
-  Pos _pos;
+  Pos _top_left;
   Size _size;
 
 public:
-  constexpr Rect(Pos pos, Size size) : _pos(pos), _size(size) {}
+  constexpr Rect(Pos top_left, Size size) : _top_left(top_left), _size(size) {}
 
-  constexpr Pos pos() const { return _pos; }
+  constexpr Pos top_left() const { return _top_left; }
   constexpr Size size() const { return _size; }
 
-  constexpr i8 top() const { return _pos.y(); }
-  constexpr i8 bottom() const { return _pos.y() + _size.h(); }
-  constexpr i8 left() const { return _pos.x(); }
-  constexpr i8 right() const { return _pos.x() + _size.w(); }
+  constexpr i8 top() const { return _top_left.y(); }
+  constexpr i8 bottom() const { return _top_left.y() + _size.h(); }
+  constexpr i8 left() const { return _top_left.x(); }
+  constexpr i8 right() const { return _top_left.x() + _size.w(); }
 
   static constexpr Rect zero() { return Rect{Pos::zero(), Size::zero()}; }
 };
