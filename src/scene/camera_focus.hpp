@@ -3,18 +3,11 @@
 
 #include "../general.hpp"
 
+#include <optional>
+
 class Piece;
 
 // CameraFocus references Piece to focus by Camera.
-class CameraFocus {
-  Piece &piece;
-
-public:
-  CameraFocus(Piece &piece) : piece(piece) {}
-
-  void change_focus(Piece &piece);
-  Pos focused_pos() const;
-  void blur();
-};
+using CameraFocus = std::optional<Piece const &>;
 
 #endif // CAMERA_FOCUS_HPP

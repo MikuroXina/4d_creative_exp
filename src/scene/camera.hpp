@@ -14,7 +14,7 @@ public:
   Pos pos;
   CameraFocus focus;
 
-  Camera(Piece &first_player) : pos(4, 4), focus(first_player) {}
+  Camera(Piece const &first_player) : pos(4, 4), focus(first_player) {}
 
   void move_to_focus();
   void write(Frame &tex) const;
