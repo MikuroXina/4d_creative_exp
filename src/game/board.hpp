@@ -27,6 +27,8 @@ public:
   }
 
   Panel &first() { return _panels.at(0); }
+
+  Panel &at(u32 index) { return _panels.at(index); }
 };
 
 #endif // BOARD_HPP

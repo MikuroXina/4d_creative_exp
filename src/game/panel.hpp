@@ -13,6 +13,8 @@ class Panel {
 public:
   Panel(Pos pos, PanelEvent event, u32 index)
       : _pos(pos), _event(event), _idx(index) {}
+
+  u32 index() const { return _idx; }
 };
 
 #endif // PANEL_HPP

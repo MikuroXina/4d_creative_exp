@@ -34,6 +34,11 @@ public:
 
   u8 spin_roulette() { return _roulette.roll(); }
 
+  void advance(Pone &target, u8 steps) {
+    auto dst = _board.at(target.where_is_on().index() + steps);
+    target.move_to(dst);
+  }
+
   void next_turn() {
     ++_turn_count;
     ++_current_player_idx;
