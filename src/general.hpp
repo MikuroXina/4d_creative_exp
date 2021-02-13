@@ -69,6 +69,11 @@ public:
   constexpr Rect(Pos top_left, Size size) : _top_left(top_left), _size(size) {}
 
   constexpr Pos top_left() const { return _top_left; }
+  constexpr Pos top_right() const { return _top_left + Pos{_size.w(), 0}; }
+  constexpr Pos bottom_left() const { return _top_left + Pos{0, _size.h()}; }
+  constexpr Pos bottom_right() const {
+    return _top_left + Pos{_size.w(), _size.h()};
+  }
   constexpr Size size() const { return _size; }
 
   constexpr i8 top() const { return _top_left.y(); }
