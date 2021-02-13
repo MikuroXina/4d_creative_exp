@@ -81,6 +81,35 @@ public:
   constexpr i8 left() const { return _top_left.x(); }
   constexpr i8 right() const { return _top_left.x() + _size.w(); }
 
+  constexpr bool includes(Pos p) const {
+    auto tl = top_left(), br = bottom_right();
+    return tl.x() < p.x() && p.x() < br.x() && tl.y() < p.y() && p.y() < br.y();
+  }
+
+  constexpr bool intersects(Rect r) const {
+    for (auto candidate : {
+             top_left(),
+             top_right(),
+             bottom_left(),
+             bottom_right(),
+         }) {
+      if (r.includes(candidate)) {
+        return true;
+      }
+    }
+    for (auto candidate : {
+             r.top_left(),
+             r.top_right(),
+             r.bottom_left(),
+             r.bottom_right(),
+         }) {
+      if (includes(candidate)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   static constexpr Rect zero() { return Rect{Pos::zero(), Size::zero()}; }
 };
 
