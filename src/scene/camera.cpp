@@ -1,8 +1,15 @@
 #include "camera.hpp"
 
+#include "../game/piece.hpp"
+#include "../lcd_renderer/frame.hpp"
+
 void Camera::move_to_focus() {
+  if (!focus.has_value()) {
+    return;
+  }
+  auto dst = focus->where_is_on().pos();
   // TODO: transite animation
-  pos = focus.focused_pos();
+  pos = dst;
 }
 
 void Camera::write(Frame &tex) const {

@@ -1,8 +1,6 @@
 #ifndef CAMERA_FOCUS_HPP
 #define CAMERA_FOCUS_HPP
 
-#include "../general.hpp"
-
 #include <optional>
 
 class Piece;

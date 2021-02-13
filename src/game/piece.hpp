@@ -22,6 +22,7 @@ public:
   void decr_coins(Coin amount) { owned_coins = owned_coins - amount; }
 
   Panel &where_is_on() { return on; }
+  Panel const &where_is_on() const { return on; }
 
   void move_to(Panel &new_panel) { on = new_panel; }
 };

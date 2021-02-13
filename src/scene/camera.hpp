@@ -1,12 +1,13 @@
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
 
-#include "../game/piece.hpp"
 #include "../general.hpp"
-#include "../lcd_renderer/frame.hpp"
 #include "./camera_focus.hpp"
 
 Size constexpr SCREEN_SIZE = Size{128, 64};
+
+class Frame;
+class Piece;
 
 // Camera renders around Piece into Frame.
 class Camera {
