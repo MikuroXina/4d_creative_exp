@@ -27,6 +27,15 @@ int main() {
   TRISB = 0b100;  // RB2 is input
   LATA = LATB = 0;
 
+  Board board;
+
+  board.add_panels({
+      {{0, 0}, {PanelEventKind::Nothing}},
+      {{32, 0}, {PanelEventKind::Good}},
+      {{32, 32}, {PanelEventKind::Bad}},
+      {{0, 32}, {PanelEventKind::Good}},
+  });
+
   Button determine(0), left(1), right(2);
 
   Frame frame{};
