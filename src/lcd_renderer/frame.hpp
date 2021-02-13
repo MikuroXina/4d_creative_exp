@@ -37,6 +37,22 @@ public:
     needs_flush[1] = 0;
   }
 
+  void draw_border(Rect rect) {
+    mark_needs_flush(rect);
+    auto const tl = rect.top_left(), br = rect.bottom_right() - Pos{1, 1};
+    auto const size = rect.size();
+    for (u8 col = 0; col != size.h(); ++col) {
+      for (u8 row = 0; row != size.w(); ++row) {
+        i8 const px_x = row + tl.x(), px_y = col + tl.y();
+        if (px_x == tl.x() || px_x == br.x() || px_y == tl.y() ||
+            px_y == br.y()) {
+          u8 const idx = tex_idx(Pos{px_x, px_y});
+          texture[idx] ^= 1 << (15 - row);
+        }
+      }
+    }
+  }
+
   void draw16x16(u16 const src[16], Pos pos) {
     i8 const x = pos.x(), y = pos.y();
     mark_needs_flush(Rect{
