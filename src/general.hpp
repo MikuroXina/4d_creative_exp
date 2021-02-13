@@ -43,6 +43,9 @@ public:
   constexpr i8 x() const { return _x; }
   constexpr i8 y() const { return _y; }
 
+  constexpr Pos operator+(Pos r) const { return Pos{_x + r._x, _y + r._y}; }
+  constexpr Pos operator-(Pos r) const { return Pos{_x - r._x, _y - r._y}; }
+
   static constexpr Pos zero() { return Pos{0, 0}; }
 };
 
