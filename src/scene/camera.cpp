@@ -1,5 +1,6 @@
 #include "camera.hpp"
 
+#include "../game/board.hpp"
 #include "../game/piece.hpp"
 #include "../lcd_renderer/frame.hpp"
 
@@ -28,6 +29,8 @@ constexpr u16 piece_pixels[16] = {
     0b0000000000000000, //
 };
 
+constexpr Size panel_size{32, 32};
+
 void Camera::write(Frame &tex) const {
   _pieces.piece_for_each([this, &tex](Piece const &piece) {
     auto local_pos = piece.where_is_on().pos() - this->pos;
@@ -36,5 +39,11 @@ void Camera::write(Frame &tex) const {
     }
     tex.draw16x16(piece_pixels, local_pos);
   });
-  // TODO: render Board
+  auto const focus_panel_idx = focus.where_is_on().index();
+  auto const board_size = _board.size();
+  for (i8 offset = -4; offset != 5; ++offset) {
+    auto const &panel =
+        _board.at((focus_panel_idx + offset + board_size) % board_size);
+    tex.draw_border({panel.pos(), panel_size});
+  }
 }

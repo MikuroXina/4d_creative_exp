@@ -35,6 +35,9 @@ public:
   Panel &last() { return _panels.back(); }
 
   Panel &at(u32 index) { return _panels.at(index); }
+  Panel const &at(u32 index) const { return _panels.at(index); }
+
+  u32 size() const { return _panels.size(); }
 };
 
 #endif // BOARD_HPP
