@@ -26,6 +26,12 @@ public:
     _panels.emplace_back(pos, event, _panels.size());
   }
 
+  void add_panels(std::initializer_list<std::pair<Pos, PanelEvent>> &&args) {
+    for (auto &&arg : args) {
+      add_panel(arg.first, arg.second);
+    }
+  }
+
   Panel &last() { return _panels.back(); }
 
   Panel &at(u32 index) { return _panels.at(index); }
