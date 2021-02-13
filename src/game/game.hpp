@@ -47,7 +47,7 @@ public:
     }
   }
 
-  void handle(PanelEvent event, Piece &stepped) { event.apply(stepped); }
+  bool is_end() const { return _turn_count == 9; }
 };
 
 #endif // GAME_HPP
