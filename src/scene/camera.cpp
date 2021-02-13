@@ -29,12 +29,12 @@ constexpr u16 piece_pixels[16] = {
     0b0000000000000000, //
 };
 
-constexpr Size panel_size{32, 32};
+constexpr Size piece_size{16, 16}, panel_size{32, 32};
 
 void Camera::write(Frame &tex) const {
   _pieces.piece_for_each([this, &tex](Piece const &piece) {
     auto local_pos = piece.where_is_on().pos() - this->pos;
-    if (!SCREEN.intersects({local_pos, {16, 16}})) {
+    if (!SCREEN.intersects({local_pos, piece_size})) {
       return;
     }
     tex.draw16x16(piece_pixels, local_pos);
