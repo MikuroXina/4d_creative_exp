@@ -1,6 +1,8 @@
 #ifndef GENERAL_HPP
 #define GENERAL_HPP
 
+#include <initializer_list>
+
 using u8 = unsigned char;
 using u16 = unsigned short;
 using u32 = unsigned long;
@@ -82,11 +84,11 @@ public:
   constexpr i8 right() const { return _top_left.x() + _size.w(); }
 
   constexpr bool includes(Pos p) const {
-    auto tl = top_left(), br = bottom_right();
-    return tl.x() < p.x() && p.x() < br.x() && tl.y() < p.y() && p.y() < br.y();
+    return top_left().x() < p.x() && p.x() < bottom_right().x() &&
+           top_left().y() < p.y() && p.y() < bottom_right().y();
   }
 
-  constexpr bool intersects(Rect r) const {
+  bool intersects(Rect r) const {
     for (auto candidate : {
              top_left(),
              top_right(),

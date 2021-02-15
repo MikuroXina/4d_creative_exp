@@ -21,7 +21,7 @@ public:
   WavPlayer();
 
   void update(u8 elapsed);
-  void fixed_update() const;
+  void fixed_update();
 
   void play_se(SoundEffect &&se);
 };

@@ -3,18 +3,20 @@
 
 #include "../general.hpp"
 #include "./coin.hpp"
-#include "./panel.hpp"
 
 #include <algorithm>
 #include <vector>
+
+class Panel;
 
 // Piece manages Coin.
 // Piece is on Panel.
 class Piece {
   Coin owned_coins;
-  Panel &on;
 
 public:
+  Panel &on;
+
   Piece(Panel &on) : owned_coins(0), on(on) {}
 
   void incr_coins(Coin amount) { owned_coins = owned_coins + amount; }
@@ -23,8 +25,6 @@ public:
 
   Panel &where_is_on() { return on; }
   Panel const &where_is_on() const { return on; }
-
-  void move_to(Panel &new_panel) { on = new_panel; }
 };
 
 // Pieces aggregates Piece.
@@ -32,11 +32,11 @@ class Pieces {
   std::vector<Piece> _pieces;
 
 public:
-  Pieces() : _pieces(4) {}
+  Pieces() { _pieces.reserve(4); }
 
   Piece &piece(u32 idx) { return _pieces.at(idx); }
 
-  void add_piece(Panel &to) { _pieces.emplace_back(to); }
+  void add_piece(Panel &to) { _pieces.push_back(Piece{to}); }
 
   template <class F> void piece_for_each(F f) const {
     for (auto const &piece : _pieces) {

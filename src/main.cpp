@@ -3,6 +3,7 @@
 #include "controller/button.hpp"
 #include "general.hpp"
 #include "lcd_renderer/frame.hpp"
+#include "scene/scene.hpp"
 #include "ui/text.hpp"
 
 // Use Fast RC Oscillator (8 Mhz) with System PLL
@@ -36,9 +37,9 @@ int main() {
       {{0, 32}, {PanelEventKind::Good}},
   });
 
-  Scene scene(1, std::move(board));
+  Scene scene(1, static_cast<Board &&>(board));
 
-  Button determine(0), left(1), right(2);
+  HardwareButton determine(0), left(1), right(2);
 
   Frame frame{};
 

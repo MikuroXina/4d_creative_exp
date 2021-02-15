@@ -1,15 +1,19 @@
-#include <vector>
-
 #include "wav_player.hpp"
 
+#include <xc.h>
+
 #include <algorithm>
+#include <utility>
+#include <vector>
 
 void WavPlayer::bounce_audio_frame() {
   std::fill(not_playing, not_playing + WAV_SIZE, 0);
   for (auto &se : sound_effects) {
     se.write(not_playing);
   }
-  std::swap(playing, not_playing);
+  for (u8 i = 0; i < WAV_SIZE; ++i) {
+    std::swap(playing[i], not_playing[i]);
+  }
 }
 
 WavPlayer::WavPlayer() {

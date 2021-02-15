@@ -13,7 +13,8 @@ class Board {
 public:
   Board() = default;
 
-  Board(Board &&moved) : _panels(std::move(moved._panels)) {}
+  Board(Board &&moved)
+      : _panels(static_cast<std::vector<Panel> &&>(moved._panels)) {}
   Board &operator=(Board &&) = default;
 
   template <class F> void panel_for_each(F f) const {
@@ -23,7 +24,7 @@ public:
   }
 
   void add_panel(Pos pos, PanelEvent event) {
-    _panels.emplace_back(pos, event, _panels.size());
+    _panels.push_back(Panel{pos, event, _panels.size()});
   }
 
   void add_panels(std::initializer_list<std::pair<Pos, PanelEvent>> &&args) {

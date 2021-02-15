@@ -2,8 +2,8 @@
 #define GAME_HPP
 
 #include "../general.hpp"
+#include "../scene/camera.hpp"
 #include "./board.hpp"
-#include "./camera.hpp"
 #include "./panel.hpp"
 #include "./piece.hpp"
 #include "./roulette.hpp"
@@ -19,7 +19,7 @@ class Game {
 
 public:
   Game(u8 numbers_of_player, Board &&board)
-      : _board{std::move(board)}, _pieces{}, _current_player_idx(0),
+      : _board{static_cast<Board &&>(board)}, _pieces{}, _current_player_idx(0),
         _turn_count(1), _numbers_of_player(numbers_of_player) {
     auto &first_panel = _board.at(0);
 
@@ -35,7 +35,7 @@ public:
 
   void advance(Piece &target, u8 steps) {
     auto dst = _board.at(target.where_is_on().index() + steps);
-    target.move_to(dst);
+    target.on = dst;
   }
 
   void next_turn() {

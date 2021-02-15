@@ -43,10 +43,10 @@ public:
   /**
    * `code` must be in [0x30A1, 0x30F6], otherwise returns an empty glyph
    */
-  static Glyph katakana(Katakana code);
+  static inline Glyph katakana(Katakana code);
 };
 
-Glyph Glyph::katakana(Katakana code) {
+inline Glyph Glyph::katakana(Katakana code) {
   // Original: M+ Bitmap Gothic Font
   // http://mplus-fonts.osdn.jp/mplus-bitmap-fonts/
   switch (code) {
