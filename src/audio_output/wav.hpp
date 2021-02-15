@@ -3,7 +3,7 @@
 
 #include "../general.hpp"
 
-static constexpr u8 WAV_SIZE = 256;
+static constexpr u16 WAV_SIZE = 256;
 
 using Wav = u8[WAV_SIZE];
 
