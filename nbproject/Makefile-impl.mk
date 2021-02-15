@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=4d_h.X
+PROJECTNAME=4d_creative_exp
 
 # Active Configuration
 DEFAULTCONF=default

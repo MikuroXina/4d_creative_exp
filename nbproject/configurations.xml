@@ -4,6 +4,51 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="audio_output"
+                       displayName="audio_output"
+                       projectFiles="true">
+          <itemPath>src/audio_output/sound_effect.hpp</itemPath>
+          <itemPath>src/audio_output/wav_player.hpp</itemPath>
+          <itemPath>src/audio_output/wav.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="controller" displayName="controller" projectFiles="true">
+          <itemPath>src/controller/focus.hpp</itemPath>
+          <itemPath>src/controller/button.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="game" displayName="game" projectFiles="true">
+          <itemPath>src/game/roulette.hpp</itemPath>
+          <itemPath>src/game/game.hpp</itemPath>
+          <itemPath>src/game/panel_event.hpp</itemPath>
+          <itemPath>src/game/board.hpp</itemPath>
+          <itemPath>src/game/panel.hpp</itemPath>
+          <itemPath>src/game/piece.hpp</itemPath>
+          <itemPath>src/game/coin.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="lcd_renderer"
+                       displayName="lcd_renderer"
+                       projectFiles="true">
+          <itemPath>src/lcd_renderer/frame.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="scene" displayName="scene" projectFiles="true">
+          <itemPath>src/scene/menu_focus.hpp</itemPath>
+          <itemPath>src/scene/camera_focus.hpp</itemPath>
+          <itemPath>src/scene/scene.hpp</itemPath>
+          <itemPath>src/scene/camera.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ui" displayName="ui" projectFiles="true">
+          <logicalFolder name="text" displayName="text" projectFiles="true">
+            <itemPath>src/ui/text/align.hpp</itemPath>
+            <itemPath>src/ui/text/glyph.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>src/ui/component.hpp</itemPath>
+          <itemPath>src/ui/menu.hpp</itemPath>
+          <itemPath>src/ui/button.hpp</itemPath>
+          <itemPath>src/ui/text.hpp</itemPath>
+        </logicalFolder>
+        <itemPath>src/timer.hpp</itemPath>
+        <itemPath>src/general.hpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -12,6 +57,30 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="audio_output"
+                       displayName="audio_output"
+                       projectFiles="true">
+          <itemPath>src/audio_output/wav_player.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="controller" displayName="controller" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="game" displayName="game" projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="lcd_renderer"
+                       displayName="lcd_renderer"
+                       projectFiles="true">
+          <itemPath>src/lcd_renderer/lcd.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="scene" displayName="scene" projectFiles="true">
+          <itemPath>src/scene/scene.cpp</itemPath>
+          <itemPath>src/scene/camera.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ui" displayName="ui" projectFiles="true">
+          <logicalFolder name="text" displayName="text" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
       <itemPath>src/main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -138,7 +207,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value=""/>
+        <property key="heap-size" value="1024"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
