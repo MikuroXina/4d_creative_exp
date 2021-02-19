@@ -16,7 +16,7 @@ using f32 = double;
 
 #define HAS_MASK(v, mask) (((v) & (mask)) == (mask))
 
-inline void busy_wait(u16 count) {
+inline void busy_wait(u32 count) {
   for (; count != 0; --count)
     ;
 }
