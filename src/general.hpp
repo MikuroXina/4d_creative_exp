@@ -14,7 +14,7 @@ using i32 = long;
 using f16 = float;
 using f32 = double;
 
-#define HAS_MASK(v, mask) ((v & mask) == mask)
+#define HAS_MASK(v, mask) (((v) & (mask)) == (mask))
 
 inline void busy_wait(u16 count) {
   for (; count != 0; --count)
