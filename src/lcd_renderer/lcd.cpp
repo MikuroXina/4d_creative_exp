@@ -46,7 +46,7 @@ void send_lcd_line(u8 line[TEX_HALF_WIDTH], u8 column) {
   }
 }
 
-void convert_format(u8 src[1024], u8 line_column, u8 page, u8 dst[64]) {
+void convert_format(u8 const src[1024], u8 line_column, u8 page, u8 dst[64]) {
   /*
     Texture(src) format:
     0 | 00000000 11111111 22222222 ... 77777777
@@ -75,7 +75,7 @@ void convert_format(u8 src[1024], u8 line_column, u8 page, u8 dst[64]) {
 
 Frame::Frame() : texture(1024, 0xaa) { // 128x64 = 1024x8
   assert(1024 == texture.size());
-  
+
   LATBbits.LATB5 = 0; // Instruction mode
   LATBbits.LATB6 = 0; // Write mode
   LATBbits.LATB7 = 0; // Turn Enable low
@@ -90,7 +90,7 @@ Frame::Frame() : texture(1024, 0xaa) { // 128x64 = 1024x8
       LATAbits.LATA4 = 0;
       LATBbits.LATB4 = 1;
     }
-  
+
     // Reset display start line
     LATBCLR = ((u16)0xff) << 8;
     LATBSET = ((u16)0b11000000) << 8;
@@ -116,9 +116,9 @@ void Frame::send_lcd() {
       LATBbits.LATB4 = 1;
     }
     for (u8 line_column{0}; line_column != 8; ++line_column) {
-//      if (!HAS_MASK(needs_flush[page], 1 << line_column)) {
-//        continue;
-//      }
+      //      if (!HAS_MASK(needs_flush[page], 1 << line_column)) {
+      //        continue;
+      //      }
       convert_format(texture.data(), line_column, page, line.data());
       send_lcd_line(line.data(), line_column);
     }
