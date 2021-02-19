@@ -9,10 +9,10 @@
 // Frmes owns its texture and support rendering it.
 class Frame {
   std::vector<u8> texture;
-  u8 needs_flush[2] =
-      {}; // needs_flush[page] = 7 6 5 4 3 2 1 0 whether needed flush
+  // needs_flush[page] = 7 6 5 4 3 2 1 0 whether needed flush
+  u8 needs_flush[2] = {0xff, 0xff};
 
-  u8 tex_idx(Pos pos) const { return (pos.y() * 128 + pos.x()) / 8; }
+  u8 tex_idx(Pos pos) const { return pos.y() * 8 + pos.x() / 8; }
 
   void mark_needs_flush(Rect area) {
     auto const top = area.top() / 8, bottom = (area.bottom() + 7) / 8 % 8,
@@ -27,9 +27,7 @@ class Frame {
   void send_lcd();
 
 public:
-  Frame() : texture(1024) { // 128x64 = 1024x8
-    assert(1024 == texture.size());
-  }
+  Frame();
 
   void flush() {
     send_lcd();
@@ -83,7 +81,8 @@ public:
         i8 px_x = row + x, px_y = col + y;
         if (0 <= px_x && px_x < 128 && 0 <= px_y && px_y < 64) {
           u8 const idx = tex_idx(Pos{px_x, px_y});
-          texture[idx] ^= src_bits & 1 << (15 - row);
+          u16 const drawing_bit = src_bits & 1 << (15 - row);
+          texture[idx] ^= drawing_bit;
         }
       }
     }

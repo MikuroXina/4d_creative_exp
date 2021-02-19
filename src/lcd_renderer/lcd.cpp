@@ -4,38 +4,49 @@
 
 constexpr u8 TEX_HALF_WIDTH = 64, TEX_HEIGHT = 64;
 
-void send_to_lcd() {
-  LATBbits.LATB6 = 1; // Send
+/*
+  Port:     RA4   RB4   RB5    ...     RB8 - RB15
+  Signal: | CS1 | CS2 | D/I | R/W | E | D0 - D7 |
+ */
+
+void end_to_send() {
+  LATBbits.LATB7 = 1;
+  LATBbits.LATB7 = 0;
   busy_wait(100);
-  LATBbits.LATB6 = 0;
+  LATBbits.LATB7 = 1;
+  busy_wait(100);
 }
 
 void send_lcd_grid(u8 grid, u8 row) {
   LATBCLR = ((u16)0xff) << 8;
-  LATBSET = grid << 8;
-  send_to_lcd();
+  LATBbits.LATB5 = 0; // Instruction mode
+  LATBSET = ((u16)0b1000000 | (row & 0b111111)) << 8;
+  end_to_send();
+
+  LATBbits.LATB5 = 1; // Data mode
+  LATBCLR = ((u16)0xff) << 8;
+  LATBSET = ((u16)grid) << 8;
+  end_to_send();
 }
 
-void send_lcd_line(u8 line[64], u8 column) {
+void send_lcd_line(u8 line[TEX_HALF_WIDTH], u8 column) {
   // Set the column
-  LATBCLR = reverse_bits((u16)0b111111);
-  LATBbits.LATB4 = 0; // Instruction mode
-  const auto instruction = (0b10111000 | (column & 0b111)) << 8;
-  LATBSET = instruction;
-  send_to_lcd();
+  LATBCLR = ((u16)0xff) << 8;
+  LATBbits.LATB5 = 0; // Instruction mode
+  LATBSET = (u16)(0b10111000 | (column & 0b111)) << 8;
+  end_to_send();
 
   // Init the row to 0
-  LATBCLR = reverse_bits((u16)0b111111);
-  LATBSET = 0b01000000 << 8;
-  send_to_lcd();
+  LATBCLR = ((u16)0xff) << 8;
+  LATBSET = ((u16)0b1000000) << 8;
+  end_to_send();
 
-  LATBbits.LATB4 = 1; // Data mode
-  for (u8 row{0}; row != 64; ++row) {
+  for (u8 row{0}; row != TEX_HALF_WIDTH; ++row) {
     send_lcd_grid(line[row], row);
   }
 }
 
-void convert_format(u8 src[1024], u8 column, u8 page, u8 dst[64]) {
+void convert_format(u8 src[1024], u8 line_column, u8 page, u8 dst[64]) {
   /*
     Texture(src) format:
     0 | 00000000 11111111 22222222 ... 77777777
@@ -52,28 +63,62 @@ void convert_format(u8 src[1024], u8 column, u8 page, u8 dst[64]) {
     7 | 0 1 2 ... 62 63
   */
   for (u8 grid_row{0}; grid_row != 64; ++grid_row) {
-    auto const index = column * 16 + grid_row / 8 + (page ? TEX_HALF_WIDTH : 0);
-    auto const bits = src[index];
-    dst[grid_row] |= bits & 1 << (7 - grid_row % 8);
+    auto const index = line_column * 64 + grid_row / 8 + (page ? 8 : 0);
+    u8 bits = 0;
+    for (u8 grid_col{0}; grid_col != 8; ++grid_col) {
+      u8 const bit = src[index + grid_col * 8];
+      bits |= bit & 1 << (7 - grid_row % 8);
+    }
+    dst[grid_row] |= bits;
+  }
+}
+
+Frame::Frame() : texture(1024, 0xaa) { // 128x64 = 1024x8
+  assert(1024 == texture.size());
+  
+  LATBbits.LATB5 = 0; // Instruction mode
+  LATBbits.LATB6 = 0; // Write mode
+  LATBbits.LATB7 = 0; // Turn Enable low
+
+  busy_wait(600000);
+
+  for (u8 i = 0; i != 2; ++i) {
+    if (i == 0) {
+      LATAbits.LATA4 = 1;
+      LATBbits.LATB4 = 0;
+    } else {
+      LATAbits.LATA4 = 0;
+      LATBbits.LATB4 = 1;
+    }
+  
+    // Reset display start line
+    LATBCLR = ((u16)0xff) << 8;
+    LATBSET = ((u16)0b11000000) << 8;
+    end_to_send();
+
+    // Turn LCD on
+    LATBCLR = ((u16)0xff) << 8;
+    LATBSET = ((u16)0b111111) << 8;
+    end_to_send();
   }
 }
 
 void Frame::send_lcd() {
+  std::vector<u8> line(TEX_HALF_WIDTH);
   for (u8 page{0}; page != 2; ++page) {
     if (page == 0) {
       // Select left page
       LATAbits.LATA4 = 1;
-      LATBbits.LATB3 = 0;
+      LATBbits.LATB4 = 0;
     } else {
       // Select right page
       LATAbits.LATA4 = 0;
-      LATBbits.LATB3 = 1;
+      LATBbits.LATB4 = 1;
     }
     for (u8 line_column{0}; line_column != 8; ++line_column) {
-      if (!HAS_MASK(needs_flush[page], 1 << line_column)) {
-        continue;
-      }
-      std::vector<u8> line(64);
+//      if (!HAS_MASK(needs_flush[page], 1 << line_column)) {
+//        continue;
+//      }
       convert_format(texture.data(), line_column, page, line.data());
       send_lcd_line(line.data(), line_column);
     }
