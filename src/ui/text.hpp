@@ -28,7 +28,7 @@ public:
       Glyph::katakana(character).write(buf.data());
       tex.draw16x16(buf.data(), Pos{x, y});
       x += 16;
-      if (128 < x) {
+      if (128 < x || character == '\n') {
         x = _anchor.x();
         y += 16;
       }
