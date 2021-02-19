@@ -46,7 +46,7 @@ void send_lcd_line(u8 line[TEX_HALF_WIDTH], u8 column) {
   }
 }
 
-void convert_format(u8 const src[1024], u8 line_column, u8 page, u8 dst[64]) {
+void convert_format(u8 src[1024], u8 line_column, u8 page, u8 dst[64]) {
   /*
     Texture(src) format:
     0 | 00000000 11111111 22222222 ... 77777777
@@ -63,11 +63,12 @@ void convert_format(u8 const src[1024], u8 line_column, u8 page, u8 dst[64]) {
     7 | 0 1 2 ... 62 63
   */
   for (u8 grid_row{0}; grid_row != 64; ++grid_row) {
-    auto const index = line_column * 64 + grid_row / 8 + (page ? 8 : 0);
+    auto const index = grid_row / 8 + line_column * 128 + (page ? 8 : 0);
     u8 bits = 0;
     for (u8 grid_col{0}; grid_col != 8; ++grid_col) {
-      u8 const bit = src[index + grid_col * 8];
-      bits |= bit & 1 << (7 - grid_row % 8);
+      if (src[index + grid_col * 16] & 1 << (7 - grid_row % 8)) {
+        bits |= 1 << grid_col;
+      }
     }
     dst[grid_row] |= bits;
   }
