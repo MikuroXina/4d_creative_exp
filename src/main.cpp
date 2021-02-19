@@ -28,32 +28,31 @@ int main() {
   TRISB = 0b100;  // RB2 is input
   LATA = LATB = 0;
 
-  Board board;
-
-  board.add_panels({
-      {{0, 0}, {PanelEventKind::Nothing}},
-      {{32, 0}, {PanelEventKind::Good}},
-      {{32, 32}, {PanelEventKind::Bad}},
-      {{0, 32}, {PanelEventKind::Good}},
-  });
-
-  Scene scene(1, static_cast<Board &&>(board));
-
-  HardwareButton determine(0), left(1), right(2);
+//  Board board;
+//
+//  board.add_panels({
+//      {{0, 0}, {PanelEventKind::Nothing}},
+//      {{32, 0}, {PanelEventKind::Good}},
+//      {{32, 32}, {PanelEventKind::Bad}},
+//      {{0, 32}, {PanelEventKind::Good}},
+//  });
+//
+//  Scene scene(1, static_cast<Board &&>(board));
+//
+//  HardwareButton determine(0), left(1), right(2);
 
   Frame frame{};
 
-  u16 line[16] = {};
-  for (u8 idx{0}; idx != 16; ++idx) {
-    line[idx] = 1 << idx;
-  }
-  frame.draw16x16(line, Pos{0, 0});
+//  u16 line[16] = {};
+//  for (u8 idx{0}; idx != 16; ++idx) {
+//    line[idx] = 1 << idx;
+//  }
+//  frame.draw16x16(line, Pos{0, 0});
 
-  Text text(u"テスト");
-  text.write(frame);
-
-  frame.flush();
+//  Text text(u"テスト");
+//  text.write(frame);
 
   while (1) {
+    frame.flush();
   }
 }
