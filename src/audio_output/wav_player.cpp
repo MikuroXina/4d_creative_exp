@@ -18,14 +18,14 @@ void WavPlayer::bounce_audio_frame() {
 
 WavPlayer::WavPlayer() {
   TRISA &= ~(1 << 3);
-  
+
   // Setup timers
   set_pr1(1000);
   IFS0bits.T1IF = 0;
   IEC0bits.T1IE = 1;
   IPC1bits.T1IP = 3;
   IPC1bits.T1IS = 0;
-  
+
   set_pr2(272727);
   OC3R = PR2;
   OC3RS = 0;
@@ -33,7 +33,7 @@ WavPlayer::WavPlayer() {
   OC3CONbits.OCTSEL = 0;
   OC3CONbits.OCM = 0b110;
   OC3CONbits.ON = 1;
-  
+
   __builtin_enable_interrupts();
 }
 
