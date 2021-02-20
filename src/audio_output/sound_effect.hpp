@@ -19,7 +19,10 @@ public:
   SoundEffect(SoundEffect const &src)
       : generator(src.generator), start(src.start), current(src.current),
         is_end(src.is_end) {}
-  SoundEffect &operator=(SoundEffect const &) { return *this; }
+  SoundEffect &operator=(SoundEffect const &src) {
+    *this = SoundEffect{src};
+    return *this;
+  }
 
   void start_to_play(u32 time) {
     start = current = time;
