@@ -10,11 +10,10 @@ constexpr u8 TEX_HALF_WIDTH = 64, TEX_HEIGHT = 64;
  */
 
 void end_to_send() {
-  LATBbits.LATB7 = 1;
   LATBbits.LATB7 = 0;
-  busy_wait(100);
+  busy_wait(200000);
   LATBbits.LATB7 = 1;
-  busy_wait(100);
+  busy_wait(200000);
 }
 
 void send_lcd_grid(u8 grid, u8 row) {
@@ -81,7 +80,7 @@ Frame::Frame() : texture(1024, 0xaa) { // 128x64 = 1024x8
   LATBbits.LATB6 = 0; // Write mode
   LATBbits.LATB7 = 0; // Turn Enable low
 
-  busy_wait(600000);
+  busy_wait(40);
 
   for (u8 i = 0; i != 2; ++i) {
     if (i == 0) {
@@ -91,6 +90,7 @@ Frame::Frame() : texture(1024, 0xaa) { // 128x64 = 1024x8
       LATAbits.LATA4 = 0;
       LATBbits.LATB4 = 1;
     }
+    busy_wait(500);
 
     // Reset display start line
     LATBCLR = ((u16)0xff) << 8;
@@ -116,6 +116,8 @@ void Frame::send_lcd() {
       LATAbits.LATA4 = 0;
       LATBbits.LATB4 = 1;
     }
+    busy_wait(500);
+
     for (u8 line_column{0}; line_column != 8; ++line_column) {
       //      if (!HAS_MASK(needs_flush[page], 1 << line_column)) {
       //        continue;
