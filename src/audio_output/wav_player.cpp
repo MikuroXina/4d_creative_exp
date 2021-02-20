@@ -1,10 +1,18 @@
 #include "wav_player.hpp"
 
+#include <sys/attribs.h>
 #include <xc.h>
 
 #include <algorithm>
 #include <utility>
 #include <vector>
+
+static WavPlayer WavPlayer::current;
+
+extern "C" void __ISR(_TIMER_2_VECTOR, IPL3SOFT) Timer2Handler() {
+  IFS0bits.T1IF = 0;
+  current->fixed_update();
+}
 
 void WavPlayer::bounce_audio_frame() {
   std::fill(not_playing, not_playing + WAV_SIZE, 0);
@@ -13,6 +21,16 @@ void WavPlayer::bounce_audio_frame() {
   }
   for (u8 i = 0; i < WAV_SIZE; ++i) {
     std::swap(playing[i], not_playing[i]);
+  }
+}
+
+void WavPlayer::fixed_update() {
+  // Change pulse width as possible as fast
+  u32 const sample = playing[playing_index];
+  OC3R = sample;
+  OC3RS = sample >> 2;
+  if (playing_index != 0) {
+    ++playing_index;
   }
 }
 
@@ -42,14 +60,9 @@ void WavPlayer::update(u8 elapsed) {
       std::remove_if(sound_effects.begin(), sound_effects.end(),
                      [](SoundEffect const &se) { return se.reached_end(); });
   sound_effects.erase(it);
-}
-
-void WavPlayer::fixed_update() {
-  auto const sample = playing[playing_index];
-  LATAbits.LATA3 = 127 < sample;
-  ++playing_index;
   if (playing_index == 0) {
     bounce_audio_frame();
+    playing_index = 1;
   }
 }
 

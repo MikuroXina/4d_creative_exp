@@ -3,8 +3,8 @@
 
 #include "../general.hpp"
 
-static constexpr u16 WAV_SIZE = 256;
+static constexpr u8 WAV_SIZE = 64;
 
-using Wav = u8[WAV_SIZE];
+using Wav = u32[WAV_SIZE];
 
 #endif // WAV_HPP
