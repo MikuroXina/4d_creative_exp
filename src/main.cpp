@@ -1,5 +1,10 @@
 #include <xc.h>
+#include <sys/attribs.h>
+#include <fftc.h> 
 
+#include "timer.hpp"
+#include "audio_output/sound_effect.hpp"
+#include "audio_output/wav_player.hpp"
 #include "controller/button.hpp"
 #include "general.hpp"
 #include "lcd_renderer/frame.hpp"
@@ -22,11 +27,26 @@
 #pragma config FWDTEN = OFF
 #pragma config JTAGEN = OFF
 
+static u8 t1if;
+
+extern "C" void __ISR(_TIMER_1_VECTOR, IPL3SOFT) Timer1Handler() {
+  IFS0bits.T1IF = 0; 
+  ++t1if;     
+}
+
+u8 square(u32 t) { return (t % 227 < 110) ? 1 : 255; }
+
 int main() {
   ANSELA = ANSELB = 0;
   TRISA = 0b1000; // RA3 is input
   TRISB = 0b100;  // RB2 is input
   LATA = LATB = 0;
+  
+  SoundEffect se{square};
+  
+  WavPlayer wp;
+
+  wp.play_se(static_cast<SoundEffect &&>(se));
 
 //  Board board;
 //
@@ -41,7 +61,7 @@ int main() {
 //
 //  HardwareButton determine(0), left(1), right(2);
 
-  Frame frame{};
+//  Frame frame{};
 
 //  u16 line[16] = {};
 //  for (u8 idx{0}; idx != 16; ++idx) {
@@ -53,6 +73,10 @@ int main() {
 //  text.write(frame);
 
   while (1) {
-    frame.flush();
+    if (!t1if) { continue; }
+//    frame.flush();
+    wp.fixed_update();
+    wp.update(t1if);
+    t1if = 0;
   }
 }
