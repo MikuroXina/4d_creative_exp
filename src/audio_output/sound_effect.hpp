@@ -3,9 +3,9 @@
 
 #include "./wav.hpp"
 
-// SoundEffectGenerator generated wave form with elapsed time.
+// SoundEffectGenerator generated wave pulse width with elapsed time.
 // Please note that returniong zero means it reached the end of sound effect.
-using SoundEffectGenerator = u8 (&)(u32 elapsed);
+using SoundEffectGenerator = u32 (&)(u32 elapsed);
 
 // SoundEffect stores start and current time.
 // SoundEffect delegates generating to a generator.
