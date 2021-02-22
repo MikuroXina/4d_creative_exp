@@ -48,6 +48,8 @@ void try_cigarette(Scene &scene, Piece &piece) {
   scene.focus().confirm_message(text);
   piece.incr_coins(Coin{20});
 }
+
+void goal(Scene &, Piece &piece) { piece.goal(); }
 } // namespace effect
 
 #endif // EFFECT_HPP
