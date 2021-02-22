@@ -39,14 +39,22 @@ public:
   }
 
   void next_turn() {
-    ++_turn_count;
-    ++_current_player_idx;
-    if (_current_player_idx == _numbers_of_player) {
-      _current_player_idx = 0;
-    }
+    do {
+      ++_turn_count;
+      ++_current_player_idx;
+      if (_current_player_idx == _numbers_of_player) {
+        _current_player_idx = 0;
+      }
+    } while (current_player().is_goaled());
   }
 
-  bool is_end() const { return _turn_count == 9; }
+  bool is_end() const {
+    bool is_goaled_all = true;
+    _pieces.piece_for_each([&is_goaled_all](Piece const &piece) {
+      is_goaled && = piece.is_goaled();
+    });
+    return is_goaled_all;
+  }
 };
 
 #endif // GAME_HPP
