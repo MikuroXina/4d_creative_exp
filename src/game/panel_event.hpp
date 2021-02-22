@@ -1,13 +1,12 @@
 #ifndef PANEL_EVENT_HPP
 #define PANEL_EVENT_HPP
 
+#include "../ui/text.hpp"
 #include "./piece.hpp"
 
-enum PanelEventKind {
-  Nothing,
-  Good,
-  Bad,
-};
+class Scene;
+
+using PanelEventKind = void (&)(Scene &scene, Piece &piece);
 
 // PanelEvent mutates Piece.
 class PanelEvent {
@@ -16,18 +15,7 @@ class PanelEvent {
 public:
   PanelEvent(PanelEventKind kind) : _kind(kind) {}
 
-  void apply(Piece &piece) const {
-    switch (_kind) {
-    case Nothing:
-      return;
-    case Good:
-      piece.incr_coins(5);
-      return;
-    case Bad:
-      piece.decr_coins(2);
-      return;
-    }
-  }
+  void apply(Scene &scene, Piece &piece) const { _kind.effect(scene, piece); }
 };
 
 #endif // PANEL_EVENT_HPP
