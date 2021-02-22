@@ -16,6 +16,7 @@ public:
 
   static Focus &get();
 
+  void confirm_message(Text &message);
   void run(Menu &menu);
 
   void next_button() {
