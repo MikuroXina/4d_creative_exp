@@ -1,5 +1,5 @@
-#ifndef BUTTON_HPP
-#define BUTTON_HPP
+#ifndef HARDWARE_BUTTON_HPP
+#define HARDWARE_BUTTON_HPP
 
 #include "../general.hpp"
 #include "../timer.hpp"
@@ -30,4 +30,4 @@ public:
   bool is_pressed() const { return _ignore_count != 0; }
 };
 
-#endif // BUTTON_HPP
+#endif // HARDWARE_BUTTON_HPP

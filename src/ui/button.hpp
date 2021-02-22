@@ -1,5 +1,5 @@
-#ifndef BUTTON_HPP
-#define BUTTON_HPP
+#ifndef SOFTWARE_BUTTON_HPP
+#define SOFTWARE_BUTTON_HPP
 
 #include <string>
 
@@ -19,4 +19,4 @@ public:
   void write(Frame &tex) const;
 };
 
-#endif // BUTTON_HPP
+#endif // SOFTWARE_BUTTON_HPP
