@@ -15,11 +15,21 @@ class Text {
   KatakanaString _label;
   Pos _anchor;
   TextAlign _align;
+  u8 height;
 
 public:
   Text(KatakanaString label, Pos anchor = Pos::zero(),
        TextAlign align = TextAlign::Left)
-      : _label(label), _anchor(anchor), _align(align) {}
+      : _label(label), _anchor(anchor), _align(align) {
+
+    for (auto const character : _label) {
+      if (character == '\n') {
+        height += 16;
+      }
+    }
+  }
+
+  Rect region() const { return Rect{_anchor, {124, height}}; }
 
   void write(Frame &tex) const {
     auto x = _anchor.x(), y = _anchor.y();
