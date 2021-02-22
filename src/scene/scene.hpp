@@ -14,6 +14,8 @@ public:
   Scene(u8 numbers_of_player, Board &&board);
 
   void run();
+
+  Game &game() { return game; }
 };
 
 #endif // SCENE_HPP
