@@ -15,7 +15,7 @@ class PanelEvent {
 public:
   PanelEvent(PanelEventKind kind) : _kind(kind) {}
 
-  void apply(Scene &scene, Piece &piece) const { _kind.effect(scene, piece); }
+  void apply(Scene &scene, Piece &piece) const { _kind(scene, piece); }
 };
 
 #endif // PANEL_EVENT_HPP
