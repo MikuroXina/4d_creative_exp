@@ -58,8 +58,6 @@ int main() {
   //  });
   //
   //  Scene scene(1, static_cast<Board &&>(board));
-  //
-  //  HardwareButton determine(0), left(1), right(2);
 
   //  Frame frame{};
 

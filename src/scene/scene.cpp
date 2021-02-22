@@ -1,16 +1,16 @@
 #include "scene.hpp"
 
 Scene::Scene(u8 numbers_of_player, Board &&board)
-    : game{numbers_of_player, static_cast<Board &&>(board)},
-      camera{game.current_player(), game.players(), board} {}
+    : _game{numbers_of_player, static_cast<Board &&>(board)},
+      camera{_game.current_player(), _game.players(), board}, _focus{} {}
 
 void Scene::run() {
   do {
-    u8 steps = game.spin_roulette();
-    auto &current = game.current_player();
-    game.advance(current, steps);
+    u8 steps = _game.spin_roulette();
+    auto &current = _game.current_player();
+    _game.advance(current, steps);
     auto &event = current.where_is_on().event();
-    event.apply(current);
-    game.next_turn();
-  } while (game.is_end());
+    event.apply(*this, current);
+    _game.next_turn();
+  } while (_game.is_end());
 }

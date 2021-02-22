@@ -12,8 +12,7 @@ class Focus {
   u8 current_button_index = 0;
 
 public:
-  Focus(HardwareButton left, HardwareButton right, HardwareButton confirm)
-      : left(left), right(right), confirm(confirm) {}
+  Focus() : left{0}, right{1}, confirm{2} {}
 
   static Focus &get();
 
