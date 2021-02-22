@@ -1,6 +1,6 @@
 #include "button.hpp"
 
-SoftwareButton::SoftwareButton(KatakanaString text) : text{text} {}
+SoftwareButton::SoftwareButton(Text text) : text{text} {}
 
 void SoftwareButton::write(Frame &tex) const {
   tex.draw_border(text.region());
