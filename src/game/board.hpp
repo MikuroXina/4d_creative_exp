@@ -35,8 +35,10 @@ public:
 
   Panel &last() { return _panels.back(); }
 
-  Panel &at(u32 index) { return _panels.at(index); }
-  Panel const &at(u32 index) const { return _panels.at(index); }
+  Panel &at(u32 index) { return _panels.at(std::min(size() - 1, index)); }
+  Panel const &at(u32 index) const {
+    return _panels.at(std::min(size() - 1, index));
+  }
 
   u32 size() const { return _panels.size(); }
 };
