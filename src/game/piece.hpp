@@ -13,7 +13,7 @@ class Panel;
 // Piece is on Panel.
 class Piece {
   Coin owned_coins;
-  bool is_goaled = false;
+  bool _is_goaled = false;
 
 public:
   Panel &on;
@@ -24,8 +24,8 @@ public:
 
   void decr_coins(Coin amount) { owned_coins = owned_coins - amount; }
 
-  void goal() { is_goaled = true; }
-  bool is_goaled() const { return is_goaled; }
+  void goal() { _is_goaled = true; }
+  bool is_goaled() const { return _is_goaled; }
 
   Panel &where_is_on() { return on; }
   Panel const &where_is_on() const { return on; }
