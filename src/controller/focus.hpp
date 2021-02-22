@@ -9,15 +9,15 @@
 class Focus {
   HardwareButton left, right, confirm;
   Menu *target = nullptr;
-  u8 current_button_index;
+  u8 current_button_index = 0;
 
 public:
   Focus(HardwareButton left, HardwareButton right, HardwareButton confirm)
       : left(left), right(right), confirm(confirm) {}
 
-  void update(u8 elapsed);
+  static Focus &get();
 
-  void set_target(Menu &menu) { target = &menu; }
+  void run(Menu &menu);
 
   void next_button() {
     if (!target) {
