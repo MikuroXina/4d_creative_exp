@@ -24,6 +24,10 @@ Scene --> UI & Game & AudioOutput & LcdRenderer
 AudioOutput & LcdRenderer --> User
 ```
 
+<small>
+  図1 モジュール間とユーザのデータの流れ
+</small>
+
 ## 制御システム
 
 `AudioOutput`, `LcdRenderer`, `Controller` の 3 つのモジュールは制御システムである. これは, ハードウェアとのやり取りを実際に行う.
@@ -74,6 +78,10 @@ class SoundEffectGenerator {
 }
 ```
 
+<small>
+  図2 音声出力モジュールのクラス図
+</small>
+
 ### LCD 描画
 
 `Frame` は 128 x 64 のテクスチャを管理し, それへの描画手段を提供する. また, テクスチャの行ごとに変更が加わったかどうかを管理し, `flush` で LCD へ出力するときの処理を削減する.
@@ -100,7 +108,11 @@ class Frame {
 }
 ```
 
-### コントローラー
+<small>
+  図3 LCD 描画モジュールのクラス図
+</small>
+
+### コントローラ
 
 この装置に付いている 3 つのボタンそれぞれを, 対応した `HardwareButton` オブジェクトが管理する. ボタンの入力状態を監視し, 入力後一定時間が経過するまでボタン操作を無視することでチャタリングを防止する.
 
@@ -130,6 +142,10 @@ class HardwareButton {
   +is_pressed() bool
 }
 ```
+
+<small>
+  図4 コントローラモジュールのクラス図
+</small>
 
 ## ゲームシステム 
 
@@ -239,6 +255,10 @@ class PanelEvent {
 }
 ```
 
+<small>
+  図5 ゲームモジュールのクラス図
+</small>
+
 ### UI 管理
 
 `Component` は `Frame` を利用した描画を行う抽象である. 実際には静的ディスパッチで表現しているため, このクラスは実在しない.
@@ -305,6 +325,10 @@ class Katakana {
 }
 ```
 
+<small>
+  図6 UI モジュールのクラス図
+</small>
+
 ### シーン
 
 `Scene` はプレイ人数と盤面データ `Board` から `Game` を生成する. また, `Camera` を生成して `Board` の情報を渡し, 盤面を描画できるようにする.
@@ -342,3 +366,7 @@ class CameraFocus {
   +Piece focus
 }
 ```
+
+<small>
+  図7 シーンモジュールのクラス図
+</small>
