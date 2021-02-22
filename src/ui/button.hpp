@@ -14,7 +14,7 @@ class SoftwareButton {
   Text text;
 
 public:
-  SoftwareButton(std::string text);
+  SoftwareButton(KatakanaString text);
 
   void write(Frame &tex) const;
 };

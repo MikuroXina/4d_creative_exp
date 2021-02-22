@@ -15,7 +15,7 @@ class Menu {
   std::vector<SoftwareButton> buttons;
 
 public:
-  Menu(std::string title, std::initializer_list<std::string> options);
+  Menu(KatakanaString title, std::initializer_list<KatakanaString> options);
 
   SoftwareButton &button(u32 index) { return buttons.at(index); }
   u32 buttons_count() const { return buttons.size(); }
