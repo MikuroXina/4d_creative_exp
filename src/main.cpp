@@ -51,10 +51,16 @@ int main() {
   //  Board board;
   //
   //  board.add_panels({
-  //      {{0, 0}, {PanelEventKind::Nothing}},
-  //      {{32, 0}, {PanelEventKind::Good}},
-  //      {{32, 32}, {PanelEventKind::Bad}},
-  //      {{0, 32}, {PanelEventKind::Good}},
+  //      {{0, 0}, {effect::revelation}},
+  //      {{32, 0}, {effect::alcohol_detected}},
+  //      {{64, 0}, {effect::try_cigarette}},
+  //      {{96, 0}, {effect::gamble_life}},
+  //      {{128, 0}, {effect::destiny}},
+  //      {{128, 32}, {effect::revelation}},
+  //      {{96, 32}, {effect::try_cigarette}},
+  //      {{64, 32}, {effect::gamble_life}},
+  //      {{32, 32}, {effect::alcohol_detected}},
+  //      {{0, 32}, {effect::goal}},
   //  });
   //
   //  Scene scene(1, static_cast<Board &&>(board));
