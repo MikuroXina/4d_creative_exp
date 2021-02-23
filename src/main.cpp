@@ -34,19 +34,19 @@ extern "C" void __ISR(_TIMER_1_VECTOR, IPL3SOFT) Timer1Handler() {
   ++t1if;
 }
 
-u8 square(u32 t) { return (t % 227 < 110) ? 1 : 255; }
+u32 square(u32 t) { return (t % 227 < 110) ? 1000 : 20000; }
 
 int main() {
   ANSELA = ANSELB = 0;
-  TRISA = 0b1000; // RA3 is input
-  TRISB = 0b100;  // RB2 is input
+  TRISA = 0;     // RA3 is all output
+  TRISB = 0b100; // RB2 is input
   LATA = LATB = 0;
 
-  SoundEffect se{square};
-
-  WavPlayer wp;
-
-  wp.play_se(static_cast<SoundEffect &&>(se));
+  //  SoundEffect se{square};
+  //
+  //  WavPlayer &wp = WavPlayer::get();
+  //
+  //  wp.play_se(static_cast<SoundEffect &&>(se));
 
   //  Board board;
   //
@@ -65,24 +65,24 @@ int main() {
   //
   //  Scene scene(1, static_cast<Board &&>(board));
 
-  //  Frame frame{};
+  Frame frame{};
 
-  //  u16 line[16] = {};
-  //  for (u8 idx{0}; idx != 16; ++idx) {
-  //    line[idx] = 1 << idx;
-  //  }
-  //  frame.draw16x16(line, Pos{0, 0});
+  //    u16 line[16] = {};
+  //    for (u8 idx{0}; idx != 16; ++idx) {
+  //      line[idx] = 1 << idx;
+  //    }
+  //    frame.draw16x16(line, Pos{0, 0});
+  frame.flush();
 
-  //  Text text(u"テスト");
-  //  text.write(frame);
+  //    Text text(u"テスト");
+  //    text.write(frame);
 
   while (1) {
-    if (!t1if) {
-      continue;
-    }
-    //    frame.flush();
-    wp.fixed_update();
-    wp.update(t1if);
-    t1if = 0;
+    //    if (!t1if) {
+    //      continue;
+    //    }
+    //      frame.flush();
+    //    wp.update(t1if);
+    //    t1if = 0;
   }
 }
