@@ -34,7 +34,7 @@ public:
   u8 spin_roulette() { return _roulette.roll(); }
 
   void advance(Piece &target, u8 steps) {
-    auto dst = _board.at(target.where_is_on().index() + steps);
+    auto &dst = _board.at(target.where_is_on().index() + steps);
     target.on = dst;
   }
 
@@ -51,7 +51,7 @@ public:
   bool is_end() const {
     bool is_goaled_all = true;
     _pieces.piece_for_each([&is_goaled_all](Piece const &piece) {
-      is_goaled && = piece.is_goaled();
+      is_goaled_all = is_goaled_all && piece.is_goaled();
     });
     return is_goaled_all;
   }

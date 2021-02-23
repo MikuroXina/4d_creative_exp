@@ -1,7 +1,6 @@
 #ifndef WAV_PLAYER_HPP
 #define WAV_PLAYER_HPP
 
-#include <optional>
 #include <vector>
 
 #include "./sound_effect.hpp"
@@ -16,12 +15,13 @@ class WavPlayer {
   Wav playing = {}, not_playing = {};
   u8 playing_index = 0;
 
-  static WavPlayer *current = nullptr;
+  static WavPlayer *current;
 
   WavPlayer();
 
-  void fixed_update();
   void bounce_audio_frame();
+
+  friend void fixed_update();
 
 public:
   static WavPlayer &get() {

@@ -1,4 +1,5 @@
 #include "wav_player.hpp"
+#include "../timer.hpp"
 
 #include <sys/attribs.h>
 #include <xc.h>
@@ -7,11 +8,13 @@
 #include <utility>
 #include <vector>
 
-static WavPlayer WavPlayer::current;
+WavPlayer *WavPlayer::current = nullptr;
+
+void fixed_update();
 
 extern "C" void __ISR(_TIMER_2_VECTOR, IPL3SOFT) Timer2Handler() {
   IFS0bits.T1IF = 0;
-  current->fixed_update();
+  fixed_update();
 }
 
 void WavPlayer::bounce_audio_frame() {
@@ -24,13 +27,14 @@ void WavPlayer::bounce_audio_frame() {
   }
 }
 
-void WavPlayer::fixed_update() {
+void fixed_update() {
+  WavPlayer &wp = WavPlayer::get();
   // Change pulse width as possible as fast
-  u32 const sample = playing[playing_index];
+  u32 const sample = wp.playing[wp.playing_index];
   OC3R = sample;
   OC3RS = sample >> 2;
-  if (playing_index != 0) {
-    ++playing_index;
+  if (wp.playing_index != 0) {
+    ++wp.playing_index;
   }
 }
 

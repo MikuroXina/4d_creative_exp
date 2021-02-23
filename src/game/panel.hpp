@@ -16,6 +16,9 @@ class Panel {
 public:
   friend class Board;
 
+  Panel(Panel const &p) : _pos(p._pos), _event(p._event), _idx(p._idx) {}
+  Panel &operator=(Panel const &p) { return *this = p; }
+
   Pos pos() const { return _pos; }
 
   PanelEvent const &event() const { return _event; }
