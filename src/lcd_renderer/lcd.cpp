@@ -11,17 +11,19 @@ constexpr u8 TEX_HALF_WIDTH = 64, TEX_HEIGHT = 64;
 
 void end_to_send() {
   LATBbits.LATB7 = 0;
-  busy_wait(200000);
+  busy_wait(3000);
   LATBbits.LATB7 = 1;
-  busy_wait(200000);
+  busy_wait(3000);
 }
 
 void send_lcd_grid(u8 grid, u8 row) {
+  // Set row
   LATBCLR = ((u16)0xff) << 8;
   LATBbits.LATB5 = 0; // Instruction mode
   LATBSET = ((u16)0b1000000 | (row & 0b111111)) << 8;
   end_to_send();
 
+  // Send grid bits
   LATBbits.LATB5 = 1; // Data mode
   LATBCLR = ((u16)0xff) << 8;
   LATBSET = ((u16)grid) << 8;
@@ -33,11 +35,6 @@ void send_lcd_line(u8 line[TEX_HALF_WIDTH], u8 column) {
   LATBCLR = ((u16)0xff) << 8;
   LATBbits.LATB5 = 0; // Instruction mode
   LATBSET = (u16)(0b10111000 | (column & 0b111)) << 8;
-  end_to_send();
-
-  // Init the row to 0
-  LATBCLR = ((u16)0xff) << 8;
-  LATBSET = ((u16)0b1000000) << 8;
   end_to_send();
 
   for (u8 row{0}; row != TEX_HALF_WIDTH; ++row) {
@@ -80,28 +77,21 @@ Frame::Frame() : texture(1024, 0xaa) { // 128x64 = 1024x8
   LATBbits.LATB6 = 0; // Write mode
   LATBbits.LATB7 = 0; // Turn Enable low
 
-  busy_wait(40);
+  busy_wait(100000);
 
-  for (u8 i = 0; i != 2; ++i) {
-    if (i == 0) {
-      LATAbits.LATA4 = 1;
-      LATBbits.LATB4 = 0;
-    } else {
-      LATAbits.LATA4 = 0;
-      LATBbits.LATB4 = 1;
-    }
-    busy_wait(500);
+  LATAbits.LATA4 = LATBbits.LATB4 = 1;
 
-    // Reset display start line
-    LATBCLR = ((u16)0xff) << 8;
-    LATBSET = ((u16)0b11000000) << 8;
-    end_to_send();
+  // Turn LCD on
+  LATBCLR = ((u16)0xff) << 8;
+  LATBSET = ((u16)0b00111111) << 8;
+  end_to_send();
 
-    // Turn LCD on
-    LATBCLR = ((u16)0xff) << 8;
-    LATBSET = ((u16)0b111111) << 8;
-    end_to_send();
-  }
+  // Reset display start line
+  LATBCLR = ((u16)0xff) << 8;
+  LATBSET = ((u16)0b11000000) << 8;
+  end_to_send();
+
+  LATAbits.LATA4 = LATBbits.LATB4 = 0;
 }
 
 void Frame::send_lcd() {
@@ -116,7 +106,6 @@ void Frame::send_lcd() {
       LATAbits.LATA4 = 0;
       LATBbits.LATB4 = 1;
     }
-    busy_wait(500);
 
     for (u8 line_column{0}; line_column != 8; ++line_column) {
       //      if (!HAS_MASK(needs_flush[page], 1 << line_column)) {
